@@ -6,3 +6,7 @@ node_modules/
 __pycache__/
 .venv/
 .DS_Store
+org.db
+*.db
+.venv/
+.pytest_cache/

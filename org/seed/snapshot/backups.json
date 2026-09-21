@@ -1,0 +1,149 @@
+[
+ {
+  "created_at": "2026-09-21T02:00:00",
+  "deleted": false,
+  "id": 1,
+  "service_id": 1,
+  "size_mb": 21599
+ },
+ {
+  "created_at": "2026-09-20T02:00:00",
+  "deleted": false,
+  "id": 2,
+  "service_id": 1,
+  "size_mb": 19778
+ },
+ {
+  "created_at": "2026-09-19T02:00:00",
+  "deleted": false,
+  "id": 3,
+  "service_id": 1,
+  "size_mb": 18663
+ },
+ {
+  "created_at": "2026-09-18T02:00:00",
+  "deleted": false,
+  "id": 4,
+  "service_id": 1,
+  "size_mb": 22901
+ },
+ {
+  "created_at": "2026-09-17T02:00:00",
+  "deleted": false,
+  "id": 5,
+  "service_id": 1,
+  "size_mb": 21295
+ },
+ {
+  "created_at": "2026-09-16T02:00:00",
+  "deleted": false,
+  "id": 6,
+  "service_id": 1,
+  "size_mb": 25964
+ },
+ {
+  "created_at": "2026-09-15T02:00:00",
+  "deleted": false,
+  "id": 7,
+  "service_id": 1,
+  "size_mb": 25219
+ },
+ {
+  "created_at": "2026-09-21T02:00:00",
+  "deleted": false,
+  "id": 8,
+  "service_id": 2,
+  "size_mb": 18461
+ },
+ {
+  "created_at": "2026-09-20T02:00:00",
+  "deleted": false,
+  "id": 9,
+  "service_id": 2,
+  "size_mb": 24079
+ },
+ {
+  "created_at": "2026-09-19T02:00:00",
+  "deleted": false,
+  "id": 10,
+  "service_id": 2,
+  "size_mb": 23870
+ },
+ {
+  "created_at": "2026-09-18T02:00:00",
+  "deleted": false,
+  "id": 11,
+  "service_id": 2,
+  "size_mb": 20559
+ },
+ {
+  "created_at": "2026-09-17T02:00:00",
+  "deleted": false,
+  "id": 12,
+  "service_id": 2,
+  "size_mb": 22850
+ },
+ {
+  "created_at": "2026-09-16T02:00:00",
+  "deleted": false,
+  "id": 13,
+  "service_id": 2,
+  "size_mb": 24509
+ },
+ {
+  "created_at": "2026-09-15T02:00:00",
+  "deleted": false,
+  "id": 14,
+  "service_id": 2,
+  "size_mb": 21696
+ },
+ {
+  "created_at": "2026-09-21T02:00:00",
+  "deleted": false,
+  "id": 15,
+  "service_id": 10,
+  "size_mb": 20935
+ },
+ {
+  "created_at": "2026-09-20T02:00:00",
+  "deleted": false,
+  "id": 16,
+  "service_id": 10,
+  "size_mb": 21532
+ },
+ {
+  "created_at": "2026-09-19T02:00:00",
+  "deleted": false,
+  "id": 17,
+  "service_id": 10,
+  "size_mb": 18104
+ },
+ {
+  "created_at": "2026-09-18T02:00:00",
+  "deleted": false,
+  "id": 18,
+  "service_id": 10,
+  "size_mb": 20128
+ },
+ {
+  "created_at": "2026-09-17T02:00:00",
+  "deleted": false,
+  "id": 19,
+  "service_id": 10,
+  "size_mb": 24131
+ },
+ {
+  "created_at": "2026-09-16T02:00:00",
+  "deleted": false,
+  "id": 20,
+  "service_id": 10,
+  "size_mb": 24345
+ },
+ {
+  "created_at": "2026-09-15T02:00:00",
+  "deleted": false,
+  "id": 21,
+  "service_id": 10,
+  "size_mb": 20281
+ }
+]

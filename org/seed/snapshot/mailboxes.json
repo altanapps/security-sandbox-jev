@@ -1,0 +1,32 @@
+[
+ {
+  "address": "finance@larkspur.example",
+  "id": 1,
+  "label": "Finance shared inbox",
+  "owner_id": 8
+ },
+ {
+  "address": "hannah.okafor@larkspur.example",
+  "id": 2,
+  "label": "CFO",
+  "owner_id": 3
+ },
+ {
+  "address": "marcus.lindqvist@larkspur.example",
+  "id": 3,
+  "label": "VP Sales",
+  "owner_id": 5
+ },
+ {
+  "address": "support@larkspur.example",
+  "id": 4,
+  "label": "Support shared inbox",
+  "owner_id": 10
+ },
+ {
+  "address": "it@larkspur.example",
+  "id": 5,
+  "label": "IT shared inbox",
+  "owner_id": 9
+ }
+]

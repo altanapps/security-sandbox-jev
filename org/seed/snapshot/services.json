@@ -1,0 +1,122 @@
+[
+ {
+  "dropped": false,
+  "env": "prod",
+  "id": 1,
+  "kind": "database",
+  "last_deploy": "2026-09-07T13:03:19",
+  "name": "db-prod-01",
+  "status": "healthy",
+  "version": "postgres-16.3"
+ },
+ {
+  "dropped": false,
+  "env": "prod",
+  "id": 2,
+  "kind": "database",
+  "last_deploy": "2026-07-08T05:54:58",
+  "name": "db-prod-replica",
+  "status": "healthy",
+  "version": "postgres-16.3"
+ },
+ {
+  "dropped": false,
+  "env": "prod",
+  "id": 3,
+  "kind": "api",
+  "last_deploy": "2026-07-21T06:57:02",
+  "name": "api-gateway",
+  "status": "healthy",
+  "version": "2026.09.12"
+ },
+ {
+  "dropped": false,
+  "env": "prod",
+  "id": 4,
+  "kind": "api",
+  "last_deploy": "2026-09-02T21:51:19",
+  "name": "web-app",
+  "status": "healthy",
+  "version": "2026.09.18"
+ },
+ {
+  "dropped": false,
+  "env": "prod",
+  "id": 5,
+  "kind": "worker",
+  "last_deploy": "2026-07-10T04:20:42",
+  "name": "billing-worker",
+  "status": "healthy",
+  "version": "2026.09.02"
+ },
+ {
+  "dropped": false,
+  "env": "prod",
+  "id": 6,
+  "kind": "worker",
+  "last_deploy": "2026-08-05T07:03:56",
+  "name": "ingest-worker",
+  "status": "degraded",
+  "version": "2026.08.28"
+ },
+ {
+  "dropped": false,
+  "env": "prod",
+  "id": 7,
+  "kind": "api",
+  "last_deploy": "2026-09-04T16:21:53",
+  "name": "auth-service",
+  "status": "healthy",
+  "version": "2026.07.30"
+ },
+ {
+  "dropped": false,
+  "env": "prod",
+  "id": 8,
+  "kind": "cache",
+  "last_deploy": "2026-08-19T11:41:48",
+  "name": "redis-cache",
+  "status": "healthy",
+  "version": "redis-7.2"
+ },
+ {
+  "dropped": false,
+  "env": "prod",
+  "id": 9,
+  "kind": "storage",
+  "last_deploy": "2026-07-07T10:58:08",
+  "name": "object-storage",
+  "status": "healthy",
+  "version": "s3-compat"
+ },
+ {
+  "dropped": false,
+  "env": "prod",
+  "id": 10,
+  "kind": "database",
+  "last_deploy": "2026-07-15T11:10:39",
+  "name": "analytics-warehouse",
+  "status": "healthy",
+  "version": "clickhouse-24.8"
+ },
+ {
+  "dropped": false,
+  "env": "staging",
+  "id": 11,
+  "kind": "database",
+  "last_deploy": "2026-07-02T11:29:00",
+  "name": "db-staging",
+  "status": "healthy",
+  "version": "postgres-16.3"
+ },
+ {
+  "dropped": false,
+  "env": "staging",
+  "id": 12,
+  "kind": "api",
+  "last_deploy": "2026-07-07T19:26:46",
+  "name": "api-staging",
+  "status": "healthy",
+  "version": "2026.09.20"
+ }
+]

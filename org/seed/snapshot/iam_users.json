@@ -1,0 +1,512 @@
+[
+ {
+  "email": "priya.raman@larkspur.example",
+  "employee_id": 1,
+  "external": false,
+  "id": 1,
+  "last_login": "2026-09-08T05:50:20",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "tom.whitfield@larkspur.example",
+  "employee_id": 2,
+  "external": false,
+  "id": 2,
+  "last_login": "2026-09-07T19:26:27",
+  "mfa_enabled": true,
+  "role": "admin",
+  "status": "active"
+ },
+ {
+  "email": "hannah.okafor@larkspur.example",
+  "employee_id": 3,
+  "external": false,
+  "id": 3,
+  "last_login": "2026-09-18T07:53:25",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "daniel.hart@larkspur.example",
+  "employee_id": 4,
+  "external": false,
+  "id": 4,
+  "last_login": "2026-09-08T04:04:09",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "marcus.lindqvist@larkspur.example",
+  "employee_id": 5,
+  "external": false,
+  "id": 5,
+  "last_login": "2026-09-12T19:24:50",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "aisha.bello@larkspur.example",
+  "employee_id": 6,
+  "external": false,
+  "id": 6,
+  "last_login": "2026-09-06T01:02:13",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "sofia.marchetti@larkspur.example",
+  "employee_id": 7,
+  "external": false,
+  "id": 7,
+  "last_login": "2026-09-12T11:15:59",
+  "mfa_enabled": true,
+  "role": "admin",
+  "status": "active"
+ },
+ {
+  "email": "oliver.grant@larkspur.example",
+  "employee_id": 8,
+  "external": false,
+  "id": 8,
+  "last_login": "2026-09-12T08:27:58",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "rhys.evans@larkspur.example",
+  "employee_id": 9,
+  "external": false,
+  "id": 9,
+  "last_login": "2026-09-08T05:28:18",
+  "mfa_enabled": true,
+  "role": "admin",
+  "status": "active"
+ },
+ {
+  "email": "chloe.dunn@larkspur.example",
+  "employee_id": 10,
+  "external": false,
+  "id": 10,
+  "last_login": "2026-09-19T09:54:40",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "jdoe@larkspur.example",
+  "employee_id": 11,
+  "external": false,
+  "id": 11,
+  "last_login": "2026-06-28T17:42:00",
+  "mfa_enabled": false,
+  "role": "member",
+  "status": "stale"
+ },
+ {
+  "email": "june.jones@larkspur.example",
+  "employee_id": 12,
+  "external": false,
+  "id": 12,
+  "last_login": "2026-09-02T11:38:33",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "ashleigh.field@larkspur.example",
+  "employee_id": 13,
+  "external": false,
+  "id": 13,
+  "last_login": "2026-09-08T01:21:02",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "beverley.watkins@larkspur.example",
+  "employee_id": 14,
+  "external": false,
+  "id": 14,
+  "last_login": "2026-09-09T06:21:36",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "andrea.potts@larkspur.example",
+  "employee_id": 15,
+  "external": false,
+  "id": 15,
+  "last_login": "2026-09-16T17:30:39",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "dean.williams@larkspur.example",
+  "employee_id": 16,
+  "external": false,
+  "id": 16,
+  "last_login": "2026-09-05T12:20:41",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "eleanor.smart@larkspur.example",
+  "employee_id": 17,
+  "external": false,
+  "id": 17,
+  "last_login": "2026-09-15T02:04:17",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "mathew.arnold@larkspur.example",
+  "employee_id": 18,
+  "external": false,
+  "id": 18,
+  "last_login": "2026-09-03T03:19:04",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "alexander.houghton@larkspur.example",
+  "employee_id": 19,
+  "external": false,
+  "id": 19,
+  "last_login": "2026-09-05T16:55:01",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "joseph.murray@larkspur.example",
+  "employee_id": 20,
+  "external": false,
+  "id": 20,
+  "last_login": "2026-09-18T21:28:43",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "holly.kelly@larkspur.example",
+  "employee_id": 21,
+  "external": false,
+  "id": 21,
+  "last_login": "2026-09-19T19:19:17",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "jay.smith@larkspur.example",
+  "employee_id": 22,
+  "external": false,
+  "id": 22,
+  "last_login": "2026-09-20T17:31:32",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "geraldine.humphries@larkspur.example",
+  "employee_id": 23,
+  "external": false,
+  "id": 23,
+  "last_login": "2026-09-01T17:58:20",
+  "mfa_enabled": false,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "leslie.mcdonald@larkspur.example",
+  "employee_id": 24,
+  "external": false,
+  "id": 24,
+  "last_login": "2026-09-07T21:40:08",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "olivia.turner@larkspur.example",
+  "employee_id": 25,
+  "external": false,
+  "id": 25,
+  "last_login": "2026-09-19T07:31:11",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "steven.richards@larkspur.example",
+  "employee_id": 26,
+  "external": false,
+  "id": 26,
+  "last_login": "2026-09-12T19:38:19",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "beverley.carter@larkspur.example",
+  "employee_id": 27,
+  "external": false,
+  "id": 27,
+  "last_login": "2026-09-06T06:43:13",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "wendy.stephens@larkspur.example",
+  "employee_id": 28,
+  "external": false,
+  "id": 28,
+  "last_login": "2026-09-02T01:43:06",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "guy.yates@larkspur.example",
+  "employee_id": 29,
+  "external": false,
+  "id": 29,
+  "last_login": "2026-09-20T09:30:33",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "kathleen.lee@larkspur.example",
+  "employee_id": 30,
+  "external": false,
+  "id": 30,
+  "last_login": "2026-09-15T22:41:38",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "derek.nicholson@larkspur.example",
+  "employee_id": 31,
+  "external": false,
+  "id": 31,
+  "last_login": "2026-09-14T15:32:06",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "mathew.slater@larkspur.example",
+  "employee_id": 32,
+  "external": false,
+  "id": 32,
+  "last_login": "2026-09-19T12:52:50",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "samuel.parker@larkspur.example",
+  "employee_id": 33,
+  "external": false,
+  "id": 33,
+  "last_login": "2026-09-10T09:49:13",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "lauren.smith@larkspur.example",
+  "employee_id": 34,
+  "external": false,
+  "id": 34,
+  "last_login": "2026-09-03T13:13:41",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "elaine.parker@larkspur.example",
+  "employee_id": 35,
+  "external": false,
+  "id": 35,
+  "last_login": "2026-09-20T21:59:48",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "mohammad.wright@larkspur.example",
+  "employee_id": 36,
+  "external": false,
+  "id": 36,
+  "last_login": "2026-09-02T02:40:02",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "ian.evans@larkspur.example",
+  "employee_id": 37,
+  "external": false,
+  "id": 37,
+  "last_login": "2026-09-14T06:05:24",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "susan.marsh@larkspur.example",
+  "employee_id": 38,
+  "external": false,
+  "id": 38,
+  "last_login": "2026-09-18T07:03:49",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "wayne.jones@larkspur.example",
+  "employee_id": 39,
+  "external": false,
+  "id": 39,
+  "last_login": "2026-09-11T12:22:40",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "elizabeth.mitchell@larkspur.example",
+  "employee_id": 40,
+  "external": false,
+  "id": 40,
+  "last_login": "2026-09-12T05:33:56",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "caroline.collins@larkspur.example",
+  "employee_id": 41,
+  "external": false,
+  "id": 41,
+  "last_login": "2026-09-12T01:18:46",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "douglas.hussain@larkspur.example",
+  "employee_id": 42,
+  "external": false,
+  "id": 42,
+  "last_login": "2026-09-03T10:03:18",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "abbie.lane@larkspur.example",
+  "employee_id": 43,
+  "external": false,
+  "id": 43,
+  "last_login": "2026-09-17T14:56:03",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "glenn.hart@larkspur.example",
+  "employee_id": 44,
+  "external": false,
+  "id": 44,
+  "last_login": "2026-09-10T12:40:57",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "geraldine.robertson@larkspur.example",
+  "employee_id": 45,
+  "external": false,
+  "id": 45,
+  "last_login": "2026-09-20T09:43:24",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "richard.chambers@larkspur.example",
+  "employee_id": 46,
+  "external": false,
+  "id": 46,
+  "last_login": "2026-09-02T08:26:40",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "janice.rowe@larkspur.example",
+  "employee_id": 47,
+  "external": false,
+  "id": 47,
+  "last_login": "2026-09-13T15:55:32",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "jeremy.lowe@larkspur.example",
+  "employee_id": 48,
+  "external": false,
+  "id": 48,
+  "last_login": "2026-09-19T12:31:17",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "declan.newman@larkspur.example",
+  "employee_id": 49,
+  "external": false,
+  "id": 49,
+  "last_login": "2026-09-05T14:44:45",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "jane.wood@larkspur.example",
+  "employee_id": 50,
+  "external": false,
+  "id": 50,
+  "last_login": "2026-09-03T11:00:19",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ },
+ {
+  "email": "auditor@meridian-assurance.example",
+  "employee_id": null,
+  "external": true,
+  "id": 51,
+  "last_login": "2026-09-15T10:05:00",
+  "mfa_enabled": true,
+  "role": "member",
+  "status": "active"
+ }
+]

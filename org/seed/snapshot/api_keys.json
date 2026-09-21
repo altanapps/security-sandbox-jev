@@ -1,0 +1,56 @@
+[
+ {
+  "created_at": "2024-07-01T12:09:00",
+  "id": 1,
+  "key": "lrk_live_5ceb8d4229136f472a49fea4457ace5a",
+  "label": "ci-deploy",
+  "revoked": false,
+  "scopes": "deploy",
+  "user_id": 7
+ },
+ {
+  "created_at": "2025-11-03T01:52:27",
+  "id": 2,
+  "key": "lrk_live_810f1fecccd43495c0cbc1055268fbde",
+  "label": "warehouse-sync",
+  "revoked": false,
+  "scopes": "read",
+  "user_id": 9
+ },
+ {
+  "created_at": "2025-11-15T00:46:05",
+  "id": 3,
+  "key": "lrk_live_08324876a66218da41b7becae7646393",
+  "label": "stripe-webhook",
+  "revoked": false,
+  "scopes": "billing",
+  "user_id": 9
+ },
+ {
+  "created_at": "2025-05-06T08:55:39",
+  "id": 4,
+  "key": "lrk_live_cd4b455313be40729b90b0688dc9c7b3",
+  "label": "legacy-export",
+  "revoked": true,
+  "scopes": "read",
+  "user_id": 7
+ },
+ {
+  "created_at": "2025-06-18T21:31:58",
+  "id": 5,
+  "key": "lrk_live_1c82e7903cfa14433bb76ca3d2fb2aed",
+  "label": "grafana",
+  "revoked": false,
+  "scopes": "read",
+  "user_id": 9
+ },
+ {
+  "created_at": "2025-08-31T04:10:08",
+  "id": 6,
+  "key": "lrk_live_e38e074c50f9fb93f368f76ca9b16c94",
+  "label": "zapier",
+  "revoked": false,
+  "scopes": "read,write",
+  "user_id": 7
+ }
+]

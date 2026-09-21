@@ -1,0 +1,722 @@
+[
+ {
+  "close_date": "2026-12-15",
+  "customer_id": 1,
+  "id": 1,
+  "name": "Brightwater \u2014 2027 enterprise renewal + 3 new markets",
+  "owner_id": 5,
+  "stage": "proposal",
+  "value": 264000
+ },
+ {
+  "close_date": "2026-10-31",
+  "customer_id": 2,
+  "id": 2,
+  "name": "Nordhaven \u2014 renewal at risk",
+  "owner_id": 5,
+  "stage": "negotiation",
+  "value": 138000
+ },
+ {
+  "close_date": "2026-11-20",
+  "customer_id": 3,
+  "id": 3,
+  "name": "Pillar & Vane \u2014 upgrade to growth+",
+  "owner_id": 5,
+  "stage": "qualified",
+  "value": 42000
+ },
+ {
+  "close_date": "2026-10-15",
+  "customer_id": 4,
+  "id": 4,
+  "name": "Quillon \u2014 SOC 2 dependent expansion",
+  "owner_id": 5,
+  "stage": "negotiation",
+  "value": 156000
+ },
+ {
+  "close_date": "2026-02-17",
+  "customer_id": 5,
+  "id": 5,
+  "name": "Tessaly \u2014 starter",
+  "owner_id": 5,
+  "stage": "won",
+  "value": 3600
+ },
+ {
+  "close_date": "2026-11-22",
+  "customer_id": 54,
+  "id": 6,
+  "name": "Walker, Pugh and Jones \u2014 upgrade",
+  "owner_id": 34,
+  "stage": "lost",
+  "value": 36600
+ },
+ {
+  "close_date": "2026-10-29",
+  "customer_id": 38,
+  "id": 7,
+  "name": "Thomas Group \u2014 renewal",
+  "owner_id": 34,
+  "stage": "lost",
+  "value": 6000
+ },
+ {
+  "close_date": "2026-10-28",
+  "customer_id": 11,
+  "id": 8,
+  "name": "Newton, Talbot and Rhodes \u2014 renewal",
+  "owner_id": 38,
+  "stage": "negotiation",
+  "value": 37200
+ },
+ {
+  "close_date": "2027-03-06",
+  "customer_id": 156,
+  "id": 9,
+  "name": "White, Chamberlain and Howe \u2014 expansion",
+  "owner_id": 31,
+  "stage": "lost",
+  "value": 112200
+ },
+ {
+  "close_date": "2027-01-02",
+  "customer_id": 86,
+  "id": 10,
+  "name": "Edwards Ltd \u2014 renewal",
+  "owner_id": 36,
+  "stage": "won",
+  "value": 39600
+ },
+ {
+  "close_date": "2027-03-16",
+  "customer_id": 18,
+  "id": 11,
+  "name": "Pearce, Harrison and Clarke \u2014 upgrade",
+  "owner_id": 29,
+  "stage": "lead",
+  "value": 238200
+ },
+ {
+  "close_date": "2027-03-03",
+  "customer_id": 147,
+  "id": 12,
+  "name": "Murray-Johnson \u2014 new logo",
+  "owner_id": 30,
+  "stage": "won",
+  "value": 5400
+ },
+ {
+  "close_date": "2026-09-23",
+  "customer_id": 115,
+  "id": 13,
+  "name": "Hunt, Kirk and Foster \u2014 expansion",
+  "owner_id": 35,
+  "stage": "won",
+  "value": 2400
+ },
+ {
+  "close_date": "2027-03-18",
+  "customer_id": 138,
+  "id": 14,
+  "name": "Thompson-Brown \u2014 expansion",
+  "owner_id": 33,
+  "stage": "proposal",
+  "value": 4800
+ },
+ {
+  "close_date": "2027-01-27",
+  "customer_id": 124,
+  "id": 15,
+  "name": "Peters, Martin and Simmons \u2014 upgrade",
+  "owner_id": 31,
+  "stage": "lead",
+  "value": 30000
+ },
+ {
+  "close_date": "2026-11-11",
+  "customer_id": 40,
+  "id": 16,
+  "name": "Jones Inc \u2014 renewal",
+  "owner_id": 35,
+  "stage": "won",
+  "value": 6600
+ },
+ {
+  "close_date": "2027-03-30",
+  "customer_id": 15,
+  "id": 17,
+  "name": "Wood, Kennedy and Kelly \u2014 expansion",
+  "owner_id": 29,
+  "stage": "lost",
+  "value": 3600
+ },
+ {
+  "close_date": "2027-02-04",
+  "customer_id": 163,
+  "id": 18,
+  "name": "Cross-Matthews \u2014 expansion",
+  "owner_id": 36,
+  "stage": "negotiation",
+  "value": 4800
+ },
+ {
+  "close_date": "2026-12-27",
+  "customer_id": 174,
+  "id": 19,
+  "name": "Chapman-Warner \u2014 renewal",
+  "owner_id": 33,
+  "stage": "lost",
+  "value": 2400
+ },
+ {
+  "close_date": "2026-10-15",
+  "customer_id": 105,
+  "id": 20,
+  "name": "Stephenson Group \u2014 upgrade",
+  "owner_id": 35,
+  "stage": "proposal",
+  "value": 3000
+ },
+ {
+  "close_date": "2027-02-24",
+  "customer_id": 65,
+  "id": 21,
+  "name": "Morgan-Powell \u2014 upgrade",
+  "owner_id": 38,
+  "stage": "lead",
+  "value": 4800
+ },
+ {
+  "close_date": "2027-01-19",
+  "customer_id": 59,
+  "id": 22,
+  "name": "Barber-Brookes \u2014 renewal",
+  "owner_id": 29,
+  "stage": "proposal",
+  "value": 49800
+ },
+ {
+  "close_date": "2026-11-18",
+  "customer_id": 35,
+  "id": 23,
+  "name": "Ellis-Douglas \u2014 upgrade",
+  "owner_id": 38,
+  "stage": "won",
+  "value": 4200
+ },
+ {
+  "close_date": "2027-02-15",
+  "customer_id": 181,
+  "id": 24,
+  "name": "Harvey Inc \u2014 new logo",
+  "owner_id": 30,
+  "stage": "lead",
+  "value": 154200
+ },
+ {
+  "close_date": "2026-11-17",
+  "customer_id": 154,
+  "id": 25,
+  "name": "Jones and Sons \u2014 expansion",
+  "owner_id": 34,
+  "stage": "won",
+  "value": 3600
+ },
+ {
+  "close_date": "2026-10-23",
+  "customer_id": 181,
+  "id": 26,
+  "name": "Harvey Inc \u2014 renewal",
+  "owner_id": 30,
+  "stage": "lost",
+  "value": 154200
+ },
+ {
+  "close_date": "2026-12-29",
+  "customer_id": 56,
+  "id": 27,
+  "name": "Young, Mitchell and Williams \u2014 renewal",
+  "owner_id": 32,
+  "stage": "qualified",
+  "value": 4200
+ },
+ {
+  "close_date": "2027-02-05",
+  "customer_id": 78,
+  "id": 28,
+  "name": "Tucker PLC \u2014 expansion",
+  "owner_id": 38,
+  "stage": "proposal",
+  "value": 6600
+ },
+ {
+  "close_date": "2027-01-31",
+  "customer_id": 90,
+  "id": 29,
+  "name": "Arnold, Watson and Alexander \u2014 upgrade",
+  "owner_id": 35,
+  "stage": "won",
+  "value": 37200
+ },
+ {
+  "close_date": "2026-12-20",
+  "customer_id": 64,
+  "id": 30,
+  "name": "Hyde-Martin \u2014 upgrade",
+  "owner_id": 37,
+  "stage": "negotiation",
+  "value": 33600
+ },
+ {
+  "close_date": "2026-11-04",
+  "customer_id": 107,
+  "id": 31,
+  "name": "Edwards, Jackson and Kemp \u2014 expansion",
+  "owner_id": 33,
+  "stage": "lead",
+  "value": 4200
+ },
+ {
+  "close_date": "2026-12-20",
+  "customer_id": 75,
+  "id": 32,
+  "name": "Gray Group \u2014 renewal",
+  "owner_id": 32,
+  "stage": "won",
+  "value": 5400
+ },
+ {
+  "close_date": "2027-02-12",
+  "customer_id": 90,
+  "id": 33,
+  "name": "Arnold, Watson and Alexander \u2014 renewal",
+  "owner_id": 35,
+  "stage": "proposal",
+  "value": 37200
+ },
+ {
+  "close_date": "2027-02-20",
+  "customer_id": 6,
+  "id": 34,
+  "name": "Roberts, Haynes and Kelly \u2014 upgrade",
+  "owner_id": 31,
+  "stage": "qualified",
+  "value": 34200
+ },
+ {
+  "close_date": "2026-11-13",
+  "customer_id": 145,
+  "id": 35,
+  "name": "Howell Inc \u2014 new logo",
+  "owner_id": 38,
+  "stage": "negotiation",
+  "value": 6000
+ },
+ {
+  "close_date": "2026-10-13",
+  "customer_id": 9,
+  "id": 36,
+  "name": "Davis LLC \u2014 new logo",
+  "owner_id": 33,
+  "stage": "lead",
+  "value": 214800
+ },
+ {
+  "close_date": "2026-12-13",
+  "customer_id": 131,
+  "id": 37,
+  "name": "Gilbert, Kelly and King \u2014 renewal",
+  "owner_id": 32,
+  "stage": "qualified",
+  "value": 6000
+ },
+ {
+  "close_date": "2026-09-23",
+  "customer_id": 18,
+  "id": 38,
+  "name": "Pearce, Harrison and Clarke \u2014 upgrade",
+  "owner_id": 29,
+  "stage": "proposal",
+  "value": 238200
+ },
+ {
+  "close_date": "2027-02-05",
+  "customer_id": 103,
+  "id": 39,
+  "name": "Roberts LLC \u2014 new logo",
+  "owner_id": 29,
+  "stage": "qualified",
+  "value": 3000
+ },
+ {
+  "close_date": "2027-03-07",
+  "customer_id": 133,
+  "id": 40,
+  "name": "Connor, Murphy and Taylor \u2014 upgrade",
+  "owner_id": 33,
+  "stage": "qualified",
+  "value": 2400
+ },
+ {
+  "close_date": "2026-09-27",
+  "customer_id": 88,
+  "id": 41,
+  "name": "Mason, Hammond and Whitehead \u2014 new logo",
+  "owner_id": 33,
+  "stage": "qualified",
+  "value": 207600
+ },
+ {
+  "close_date": "2027-01-11",
+  "customer_id": 159,
+  "id": 42,
+  "name": "Donnelly, Dawson and Wheeler \u2014 expansion",
+  "owner_id": 33,
+  "stage": "won",
+  "value": 5400
+ },
+ {
+  "close_date": "2027-02-04",
+  "customer_id": 168,
+  "id": 43,
+  "name": "Peters, Weston and Dale \u2014 expansion",
+  "owner_id": 29,
+  "stage": "negotiation",
+  "value": 158400
+ },
+ {
+  "close_date": "2027-01-13",
+  "customer_id": 17,
+  "id": 44,
+  "name": "Wilson Group \u2014 renewal",
+  "owner_id": 31,
+  "stage": "proposal",
+  "value": 4200
+ },
+ {
+  "close_date": "2026-10-26",
+  "customer_id": 46,
+  "id": 45,
+  "name": "Johnson, Taylor and Fraser \u2014 new logo",
+  "owner_id": 32,
+  "stage": "qualified",
+  "value": 6000
+ },
+ {
+  "close_date": "2026-10-23",
+  "customer_id": 174,
+  "id": 46,
+  "name": "Chapman-Warner \u2014 upgrade",
+  "owner_id": 33,
+  "stage": "won",
+  "value": 2400
+ },
+ {
+  "close_date": "2026-11-01",
+  "customer_id": 167,
+  "id": 47,
+  "name": "O'Neill, Wilson and Connor \u2014 upgrade",
+  "owner_id": 37,
+  "stage": "lead",
+  "value": 3600
+ },
+ {
+  "close_date": "2026-10-18",
+  "customer_id": 6,
+  "id": 48,
+  "name": "Roberts, Haynes and Kelly \u2014 upgrade",
+  "owner_id": 31,
+  "stage": "lost",
+  "value": 34200
+ },
+ {
+  "close_date": "2027-01-27",
+  "customer_id": 72,
+  "id": 49,
+  "name": "Howarth Inc \u2014 upgrade",
+  "owner_id": 35,
+  "stage": "won",
+  "value": 6600
+ },
+ {
+  "close_date": "2026-11-01",
+  "customer_id": 125,
+  "id": 50,
+  "name": "Ashton-Abbott \u2014 renewal",
+  "owner_id": 32,
+  "stage": "proposal",
+  "value": 6600
+ },
+ {
+  "close_date": "2027-01-19",
+  "customer_id": 21,
+  "id": 51,
+  "name": "Flynn Ltd \u2014 expansion",
+  "owner_id": 29,
+  "stage": "proposal",
+  "value": 20400
+ },
+ {
+  "close_date": "2026-12-08",
+  "customer_id": 165,
+  "id": 52,
+  "name": "Anderson and Sons \u2014 expansion",
+  "owner_id": 33,
+  "stage": "proposal",
+  "value": 15000
+ },
+ {
+  "close_date": "2026-09-24",
+  "customer_id": 185,
+  "id": 53,
+  "name": "Clarke Ltd \u2014 renewal",
+  "owner_id": 33,
+  "stage": "won",
+  "value": 2400
+ },
+ {
+  "close_date": "2026-10-21",
+  "customer_id": 171,
+  "id": 54,
+  "name": "White-Turner \u2014 upgrade",
+  "owner_id": 34,
+  "stage": "negotiation",
+  "value": 31800
+ },
+ {
+  "close_date": "2026-11-20",
+  "customer_id": 31,
+  "id": 55,
+  "name": "Howard PLC \u2014 expansion",
+  "owner_id": 31,
+  "stage": "qualified",
+  "value": 3600
+ },
+ {
+  "close_date": "2027-01-29",
+  "customer_id": 16,
+  "id": 56,
+  "name": "Evans-Smith \u2014 renewal",
+  "owner_id": 30,
+  "stage": "won",
+  "value": 18600
+ },
+ {
+  "close_date": "2026-11-10",
+  "customer_id": 66,
+  "id": 57,
+  "name": "Evans, Lewis and Miller \u2014 expansion",
+  "owner_id": 35,
+  "stage": "proposal",
+  "value": 6600
+ },
+ {
+  "close_date": "2027-01-28",
+  "customer_id": 94,
+  "id": 58,
+  "name": "Williamson and Sons \u2014 new logo",
+  "owner_id": 37,
+  "stage": "lost",
+  "value": 171600
+ },
+ {
+  "close_date": "2026-09-29",
+  "customer_id": 180,
+  "id": 59,
+  "name": "Patel-Clements \u2014 expansion",
+  "owner_id": 38,
+  "stage": "qualified",
+  "value": 3000
+ },
+ {
+  "close_date": "2026-12-15",
+  "customer_id": 91,
+  "id": 60,
+  "name": "Cooper Group \u2014 renewal",
+  "owner_id": 36,
+  "stage": "lead",
+  "value": 3000
+ },
+ {
+  "close_date": "2026-10-10",
+  "customer_id": 50,
+  "id": 61,
+  "name": "Williamson-Day \u2014 new logo",
+  "owner_id": 30,
+  "stage": "won",
+  "value": 4200
+ },
+ {
+  "close_date": "2026-11-25",
+  "customer_id": 44,
+  "id": 62,
+  "name": "Brady, King and Williams \u2014 expansion",
+  "owner_id": 29,
+  "stage": "negotiation",
+  "value": 184200
+ },
+ {
+  "close_date": "2026-09-30",
+  "customer_id": 139,
+  "id": 63,
+  "name": "Barrett-Moore \u2014 upgrade",
+  "owner_id": 37,
+  "stage": "won",
+  "value": 53400
+ },
+ {
+  "close_date": "2026-11-17",
+  "customer_id": 122,
+  "id": 64,
+  "name": "Butler-Hussain \u2014 renewal",
+  "owner_id": 32,
+  "stage": "proposal",
+  "value": 165000
+ },
+ {
+  "close_date": "2027-03-21",
+  "customer_id": 192,
+  "id": 65,
+  "name": "Craig, Turnbull and Pearce \u2014 new logo",
+  "owner_id": 33,
+  "stage": "negotiation",
+  "value": 3600
+ },
+ {
+  "close_date": "2026-11-12",
+  "customer_id": 114,
+  "id": 66,
+  "name": "Clark, Sullivan and Francis \u2014 expansion",
+  "owner_id": 38,
+  "stage": "lost",
+  "value": 6000
+ },
+ {
+  "close_date": "2026-10-04",
+  "customer_id": 153,
+  "id": 67,
+  "name": "Roberts, Lee and Freeman \u2014 expansion",
+  "owner_id": 38,
+  "stage": "won",
+  "value": 4200
+ },
+ {
+  "close_date": "2026-11-27",
+  "customer_id": 119,
+  "id": 68,
+  "name": "Barrett PLC \u2014 expansion",
+  "owner_id": 35,
+  "stage": "won",
+  "value": 108000
+ },
+ {
+  "close_date": "2027-03-30",
+  "customer_id": 127,
+  "id": 69,
+  "name": "Bray Group \u2014 renewal",
+  "owner_id": 34,
+  "stage": "qualified",
+  "value": 4200
+ },
+ {
+  "close_date": "2026-12-19",
+  "customer_id": 135,
+  "id": 70,
+  "name": "Smith-Bolton \u2014 upgrade",
+  "owner_id": 33,
+  "stage": "qualified",
+  "value": 53400
+ },
+ {
+  "close_date": "2027-02-26",
+  "customer_id": 106,
+  "id": 71,
+  "name": "Francis Inc \u2014 renewal",
+  "owner_id": 31,
+  "stage": "lead",
+  "value": 172800
+ },
+ {
+  "close_date": "2027-02-01",
+  "customer_id": 164,
+  "id": 72,
+  "name": "Lewis Group \u2014 upgrade",
+  "owner_id": 30,
+  "stage": "won",
+  "value": 34200
+ },
+ {
+  "close_date": "2027-03-17",
+  "customer_id": 133,
+  "id": 73,
+  "name": "Connor, Murphy and Taylor \u2014 expansion",
+  "owner_id": 33,
+  "stage": "lost",
+  "value": 2400
+ },
+ {
+  "close_date": "2026-12-18",
+  "customer_id": 87,
+  "id": 74,
+  "name": "Bolton, Wilson and Evans \u2014 upgrade",
+  "owner_id": 38,
+  "stage": "negotiation",
+  "value": 4200
+ },
+ {
+  "close_date": "2027-03-01",
+  "customer_id": 49,
+  "id": 75,
+  "name": "Taylor, Coleman and Cole \u2014 upgrade",
+  "owner_id": 32,
+  "stage": "proposal",
+  "value": 18000
+ },
+ {
+  "close_date": "2027-03-10",
+  "customer_id": 184,
+  "id": 76,
+  "name": "Parker Inc \u2014 new logo",
+  "owner_id": 36,
+  "stage": "proposal",
+  "value": 3600
+ },
+ {
+  "close_date": "2026-10-18",
+  "customer_id": 166,
+  "id": 77,
+  "name": "Williams Inc \u2014 expansion",
+  "owner_id": 31,
+  "stage": "qualified",
+  "value": 17400
+ },
+ {
+  "close_date": "2026-12-04",
+  "customer_id": 165,
+  "id": 78,
+  "name": "Anderson and Sons \u2014 renewal",
+  "owner_id": 33,
+  "stage": "qualified",
+  "value": 15000
+ },
+ {
+  "close_date": "2026-11-18",
+  "customer_id": 98,
+  "id": 79,
+  "name": "Jones-Chapman \u2014 new logo",
+  "owner_id": 34,
+  "stage": "negotiation",
+  "value": 16800
+ },
+ {
+  "close_date": "2026-11-25",
+  "customer_id": 119,
+  "id": 80,
+  "name": "Barrett PLC \u2014 upgrade",
+  "owner_id": 35,
+  "stage": "lead",
+  "value": 108000
+ }
+]

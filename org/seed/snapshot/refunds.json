@@ -1,0 +1,58 @@
+[
+ {
+  "amount": 1925000,
+  "created_at": "2026-04-21T00:00:00",
+  "id": 1,
+  "invoice_id": 56,
+  "reason": "billing error"
+ },
+ {
+  "amount": 145000,
+  "created_at": "2026-06-20T00:00:00",
+  "id": 2,
+  "invoice_id": 61,
+  "reason": "cancelled within 14 days"
+ },
+ {
+  "amount": 1150000,
+  "created_at": "2026-07-26T00:00:00",
+  "id": 3,
+  "invoice_id": 129,
+  "reason": "billing error"
+ },
+ {
+  "amount": 55000,
+  "created_at": "2026-02-25T00:00:00",
+  "id": 4,
+  "invoice_id": 152,
+  "reason": "duplicate charge"
+ },
+ {
+  "amount": 55000,
+  "created_at": "2026-02-08T00:00:00",
+  "id": 5,
+  "invoice_id": 170,
+  "reason": "billing error"
+ },
+ {
+  "amount": 310000,
+  "created_at": "2026-03-30T00:00:00",
+  "id": 6,
+  "invoice_id": 172,
+  "reason": "billing error"
+ },
+ {
+  "amount": 45000,
+  "created_at": "2026-05-25T00:00:00",
+  "id": 7,
+  "invoice_id": 202,
+  "reason": "billing error"
+ },
+ {
+  "amount": 1380000,
+  "created_at": "2026-05-30T00:00:00",
+  "id": 8,
+  "invoice_id": 216,
+  "reason": "duplicate charge"
+ }
+]

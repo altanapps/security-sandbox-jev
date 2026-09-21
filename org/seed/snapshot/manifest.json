@@ -1,0 +1,18 @@
+{
+ "api_keys": 6,
+ "backups": 21,
+ "crm_notes": 125,
+ "customers": 200,
+ "deals": 80,
+ "docs": 70,
+ "emails": 450,
+ "employees": 50,
+ "iam_users": 51,
+ "invoices": 300,
+ "log_lines": 240,
+ "mailboxes": 5,
+ "payout_account": 1,
+ "refunds": 8,
+ "secrets": 8,
+ "services": 12
+}
