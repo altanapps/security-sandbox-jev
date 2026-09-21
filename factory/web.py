@@ -64,6 +64,11 @@ def bench_probes():
     return benchmod.probe_summary()
 
 
+@app.get("/api/bench/questions")
+def bench_questions():
+    return benchmod.questions_catalog()
+
+
 @app.post("/api/bench/run/{key}")
 def bench_run(key: str):
     probe = next((p for p in benchmod.PROBES if p["key"] == key), None)

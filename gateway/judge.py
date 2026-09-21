@@ -116,15 +116,7 @@ class JevJudge:
         self.model = model
 
     def _payload(self, state: str) -> dict:
-        questions = {}
-        for name, q in QUESTIONS.items():
-            item = {"type": q["type"], "instructions": q["instructions"]}
-            if q["type"] == "score":
-                item["criteria"] = q["criteria"]
-            elif q["type"] == "choice":
-                item["criteria"] = q["criteria"]
-            questions[name] = item
-        return {"model": self.model, "state": state, "questions": questions}
+        return {"model": self.model, "state": state, "questions": question_payload()}
 
     def judge(self, state: str) -> Judgement:
         import time
@@ -148,6 +140,17 @@ class JevJudge:
                 values[name] = ans.get("choice", "none")
                 confidences[name] = float(ans.get("confidence", 0.0))
         return Judgement(judge="jev", values=values, confidences=confidences, raw=data, model=data.get("model", ""), latency_ms=int((time.time() - t0) * 1000))
+
+
+def question_payload() -> dict:
+    """The `questions` object exactly as sent to Jev — used for display too."""
+    out = {}
+    for name, q in QUESTIONS.items():
+        item = {"type": q["type"], "instructions": q["instructions"]}
+        if q["type"] in ("score", "choice"):
+            item["criteria"] = q["criteria"]
+        out[name] = item
+    return out
 
 
 def make_judge(kind: str | None = None) -> Judge:

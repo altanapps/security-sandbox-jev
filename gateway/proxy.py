@@ -19,7 +19,7 @@ from fastapi.responses import JSONResponse
 from starlette.concurrency import run_in_threadpool
 
 from gateway.audit import Audit
-from gateway.judge import make_judge
+from gateway.judge import make_judge, question_payload
 from gateway.orgspec import OrgSpec
 from gateway.pending import PendingQueue
 from gateway.policy import decide
@@ -96,7 +96,7 @@ def health():
 
 @app.post("/gateway/agents")
 def register(body: dict):
-    rec = AgentRecord(token=body["run_id"], permissions=body["permissions"], context=body.get("context", ""), query=body.get("query", ""), confirm_mode=body.get("confirm_mode", "operator"), confirm_timeout=float(body.get("confirm_timeout", 120.0)), meta=body.get("meta", {}))
+    rec = AgentRecord(token=body["run_id"], permissions=body["permissions"], context=body.get("context", ""), query=body.get("query", ""), confirm_mode=body.get("confirm_mode", "operator"), confirm_timeout=float(body.get("confirm_timeout", 120.0)), debug=bool(body.get("debug", False)), meta=body.get("meta", {}))
     registry.register(rec)
     return {"registered": rec.token, "judge": judge().name}
 
@@ -129,6 +129,7 @@ def _pipeline(method: str, path: str, token: str | None, raw_body: bytes, body, 
             "module": extra.get("module"), "tier": extra.get("tier"), "decision": action,
             "reason": extra.get("reason"), "risk": extra.get("risk"), "confidence": extra.get("confidence"),
             "policy_action": extra.get("policy_action"),
+            "state": extra.get("state"), "jev_request": extra.get("jev_request"),
             "jev": extra.get("jev"), "judge": extra.get("judge"), "status": extra.get("status"),
             "latency_ms": int((time.time() - t0) * 1000), "jev_ms": extra.get("jev_ms"),
             "args": {"query": query, "body": body},
@@ -152,6 +153,8 @@ def _pipeline(method: str, path: str, token: str | None, raw_body: bytes, body, 
     j = judge().judge(state)
     d = decide(j, route.tier)
     jev_summary = {"values": j.values, "confidences": j.confidences, "error": j.error, "model": j.model}
+    dbg_state = state if agent.debug else None
+    dbg_req = {"questions": question_payload()} if agent.debug else None
     policy_action = d.action
     action = d.action
 
@@ -162,15 +165,15 @@ def _pipeline(method: str, path: str, token: str | None, raw_body: bytes, body, 
             action = "block"
         else:
             p = pending.create(run_id=run_id, agent=agent.token, method=method, path=path, tier=route.tier, decision_reason=d.reason, signals=d.signals)
-            log("confirm", module=route.module, tier=route.tier, reason=d.reason, risk=d.risk, confidence=d.confidence, jev=jev_summary, judge=j.judge, jev_ms=j.latency_ms, status="pending", policy_action=policy_action)
+            log("confirm", module=route.module, tier=route.tier, reason=d.reason, risk=d.risk, confidence=d.confidence, jev=jev_summary, judge=j.judge, jev_ms=j.latency_ms, status="pending", policy_action=policy_action, state=dbg_state, jev_request=dbg_req)
             action = pending.wait(p, agent.confirm_timeout)
 
     if action == "block":
-        log("block", module=route.module, tier=route.tier, reason=d.reason, risk=d.risk, confidence=d.confidence, jev=jev_summary, judge=j.judge, jev_ms=j.latency_ms, status=403, policy_action=policy_action)
+        log("block", module=route.module, tier=route.tier, reason=d.reason, risk=d.risk, confidence=d.confidence, jev=jev_summary, judge=j.judge, jev_ms=j.latency_ms, status=403, policy_action=policy_action, state=dbg_state, jev_request=dbg_req)
         return JSONResponse({"blocked": True, "reason": d.reason, "jev": j.values}, status_code=403)
 
     upstream = _client.request(method, path, params=query, content=raw_body if raw_body else None, headers={"content-type": content_type} if raw_body else {})
-    log("allow", module=route.module, tier=route.tier, reason=d.reason, risk=d.risk, confidence=d.confidence, jev=jev_summary, judge=j.judge, jev_ms=j.latency_ms, status=upstream.status_code, policy_action=policy_action)
+    log("allow", module=route.module, tier=route.tier, reason=d.reason, risk=d.risk, confidence=d.confidence, jev=jev_summary, judge=j.judge, jev_ms=j.latency_ms, status=upstream.status_code, policy_action=policy_action, state=dbg_state, jev_request=dbg_req)
     return Response(content=upstream.content, status_code=upstream.status_code, media_type=upstream.headers.get("content-type", "application/json"))
 
 

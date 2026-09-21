@@ -13,6 +13,7 @@ class AgentRecord:
     query: str
     confirm_mode: str = "operator"   # operator | auto_deny | auto_allow
     confirm_timeout: float = 120.0
+    debug: bool = False              # when true, the audit row keeps the exact Jev input
     meta: dict = field(default_factory=dict)
 
 

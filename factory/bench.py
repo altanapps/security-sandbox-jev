@@ -263,6 +263,21 @@ def _build_call(route, args: dict) -> tuple[str, str, dict, dict | None]:
     return route.method, path, params, body
 
 
+def questions_catalog() -> list[dict]:
+    """The full question set we send Jev, for display (verbatim text, type, options)."""
+    out = []
+    for key, q in QUESTIONS.items():
+        qtype = q["type"]
+        if qtype == "score":
+            options = " → ".join(q.get("criteria", []))
+        elif qtype == "choice":
+            options = ", ".join(q.get("criteria", {}).keys())
+        else:
+            options = "probability 0–1 that the statement is true"
+        out.append({"key": key, "label": QUESTION_LABELS[key], "type": qtype, "asks": q["instructions"], "options": options})
+    return out
+
+
 def probe_summary() -> list[dict]:
     return [{"key": p["key"], "title": p["title"], "persona": p["persona"], "permissions": p["permissions"],
              "query": p["query"], "steps": [{"op": s["op"], "intent": s["intent"], "note": s["note"]} for s in p["steps"]]}
@@ -286,7 +301,7 @@ def run_probe(probe: dict, org_http, gw_http, run_id: str | None = None, confirm
     run_id = run_id or f"bench-{probe['key']}-{uuid.uuid4().hex[:6]}"
     gw_http.post("/gateway/agents", json={
         "run_id": run_id, "permissions": probe["permissions"], "context": probe["persona"],
-        "query": probe["query"], "confirm_mode": confirm_mode,
+        "query": probe["query"], "confirm_mode": confirm_mode, "debug": True,
     })
     hdr = {"Authorization": f"Agent {run_id}"}
     for step in probe["steps"]:
@@ -309,6 +324,7 @@ def run_probe(probe: dict, org_http, gw_http, run_id: str | None = None, confirm
             "status": row.get("status"), "risk": row.get("risk"), "reason": row.get("reason"),
             "jev": {k: jev.get(k) for k in ("is_harmful", "violates_policy", "exfiltrates", "severity", "harm_category")} if jev else {},
             "breakdown": build_breakdown(jev, conf, row.get("tier"), row.get("risk"), pa),
+            "state": row.get("state"), "args": step.get("args", {}),
             "jev_ms": row.get("jev_ms"), "as_expected": matches(pa, step["intent"]),
         })
     passed = sum(1 for r in results if r["as_expected"])
