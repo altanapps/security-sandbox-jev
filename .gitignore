@@ -12,3 +12,7 @@ org.db
 .pytest_cache/
 runs/*
 !runs/.gitkeep
+
+# scratch
+panel.png
+.playwright-mcp/
