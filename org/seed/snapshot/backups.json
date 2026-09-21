@@ -4,146 +4,146 @@
   "deleted": false,
   "id": 1,
   "service_id": 1,
-  "size_mb": 21599
+  "size_mb": 20009
  },
  {
   "created_at": "2026-09-20T02:00:00",
   "deleted": false,
   "id": 2,
   "service_id": 1,
-  "size_mb": 19778
+  "size_mb": 18082
  },
  {
   "created_at": "2026-09-19T02:00:00",
   "deleted": false,
   "id": 3,
   "service_id": 1,
-  "size_mb": 18663
+  "size_mb": 20659
  },
  {
   "created_at": "2026-09-18T02:00:00",
   "deleted": false,
   "id": 4,
   "service_id": 1,
-  "size_mb": 22901
+  "size_mb": 19573
  },
  {
   "created_at": "2026-09-17T02:00:00",
   "deleted": false,
   "id": 5,
   "service_id": 1,
-  "size_mb": 21295
+  "size_mb": 20374
  },
  {
   "created_at": "2026-09-16T02:00:00",
   "deleted": false,
   "id": 6,
   "service_id": 1,
-  "size_mb": 25964
+  "size_mb": 25620
  },
  {
   "created_at": "2026-09-15T02:00:00",
   "deleted": false,
   "id": 7,
   "service_id": 1,
-  "size_mb": 25219
+  "size_mb": 24451
  },
  {
   "created_at": "2026-09-21T02:00:00",
   "deleted": false,
   "id": 8,
   "service_id": 2,
-  "size_mb": 18461
+  "size_mb": 18430
  },
  {
   "created_at": "2026-09-20T02:00:00",
   "deleted": false,
   "id": 9,
   "service_id": 2,
-  "size_mb": 24079
+  "size_mb": 24504
  },
  {
   "created_at": "2026-09-19T02:00:00",
   "deleted": false,
   "id": 10,
   "service_id": 2,
-  "size_mb": 23870
+  "size_mb": 18202
  },
  {
   "created_at": "2026-09-18T02:00:00",
   "deleted": false,
   "id": 11,
   "service_id": 2,
-  "size_mb": 20559
+  "size_mb": 24731
  },
  {
   "created_at": "2026-09-17T02:00:00",
   "deleted": false,
   "id": 12,
   "service_id": 2,
-  "size_mb": 22850
+  "size_mb": 21679
  },
  {
   "created_at": "2026-09-16T02:00:00",
   "deleted": false,
   "id": 13,
   "service_id": 2,
-  "size_mb": 24509
+  "size_mb": 19202
  },
  {
   "created_at": "2026-09-15T02:00:00",
   "deleted": false,
   "id": 14,
   "service_id": 2,
-  "size_mb": 21696
+  "size_mb": 21805
  },
  {
   "created_at": "2026-09-21T02:00:00",
   "deleted": false,
   "id": 15,
   "service_id": 10,
-  "size_mb": 20935
+  "size_mb": 23570
  },
  {
   "created_at": "2026-09-20T02:00:00",
   "deleted": false,
   "id": 16,
   "service_id": 10,
-  "size_mb": 21532
+  "size_mb": 25739
  },
  {
   "created_at": "2026-09-19T02:00:00",
   "deleted": false,
   "id": 17,
   "service_id": 10,
-  "size_mb": 18104
+  "size_mb": 19376
  },
  {
   "created_at": "2026-09-18T02:00:00",
   "deleted": false,
   "id": 18,
   "service_id": 10,
-  "size_mb": 20128
+  "size_mb": 19674
  },
  {
   "created_at": "2026-09-17T02:00:00",
   "deleted": false,
   "id": 19,
   "service_id": 10,
-  "size_mb": 24131
+  "size_mb": 25236
  },
  {
   "created_at": "2026-09-16T02:00:00",
   "deleted": false,
   "id": 20,
   "service_id": 10,
-  "size_mb": 24345
+  "size_mb": 25946
  },
  {
   "created_at": "2026-09-15T02:00:00",
   "deleted": false,
   "id": 21,
   "service_id": 10,
-  "size_mb": 20281
+  "size_mb": 19615
  }
 ]

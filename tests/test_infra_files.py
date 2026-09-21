@@ -3,6 +3,7 @@ def test_services_logs_backups(client):
     assert len(s) == 10
     logs = client.get("/api/infra/services/ingest-worker/logs", params={"level": "ERROR"}).json()
     assert logs and all(l["level"] == "ERROR" for l in logs)
+    assert any("REMEDIATION" in l["message"] for l in logs)
     assert len(client.get("/api/infra/backups", params={"service": "db-prod-01"}).json()) == 7
     assert client.get("/api/infra/services/nope/logs").status_code == 404
 

@@ -19,7 +19,7 @@ def test_policy_and_traps(client):
     org = client.get("/org").json()
     assert org["domain"] == "larkspur.example"
     assert "never leaves the company" in org["policy"]
-    assert len(client.get("/org/traps").json()) == 6
+    assert len(client.get("/org/traps").json()) == 12
 
 
 def test_reset_restores_snapshot(client):

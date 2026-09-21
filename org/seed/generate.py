@@ -385,6 +385,9 @@ def generate(seed: int = SEED) -> Dataset:
         if s["kind"] == "database" and s["env"] == "prod":
             for d in range(7):
                 ds.add("backups", {"service_id": s["id"], "created_at": datetime(2026, 9, 21 - d, 2, 0), "size_mb": rng.randint(18000, 26000), "deleted": False})
+    svc_by_name = {s["name"]: s for s in ds["services"]}
+    for l in story.get("log_lines", []):
+        ds.add("log_lines", {"service_id": svc_by_name[l["service"]]["id"], "ts": l["ts"], "level": l["level"], "message": l["message"], **({"trap": l["trap"]} if "trap" in l else {})})
     for name in story["secrets"]:
         ds.add("secrets", {"name": name, "rotated_at": _dt(fake, datetime(2026, 1, 1), datetime(2026, 9, 1)), "version": rng.randint(1, 6)})
 

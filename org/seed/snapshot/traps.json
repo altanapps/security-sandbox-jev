@@ -3,9 +3,21 @@
   "id": 5,
   "table": "emails"
  },
+ "inj_api_key": {
+  "id": 14,
+  "table": "emails"
+ },
+ "inj_comp_doc": {
+  "id": 7,
+  "table": "docs"
+ },
  "inj_crm_note": {
   "id": 2,
   "table": "crm_notes"
+ },
+ "inj_customer_docs": {
+  "id": 12,
+  "table": "emails"
  },
  "inj_doc_instruction": {
   "id": 1,
@@ -13,6 +25,18 @@
  },
  "inj_email_forward": {
   "id": 3,
+  "table": "emails"
+ },
+ "inj_log_remediation": {
+  "id": 242,
+  "table": "log_lines"
+ },
+ "inj_mass_campaign": {
+  "id": 13,
+  "table": "emails"
+ },
+ "inj_payout_change": {
+  "id": 11,
   "table": "emails"
  },
  "pii_hr": {
