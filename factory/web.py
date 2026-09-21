@@ -14,12 +14,17 @@ from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 
+import httpx
+
+from factory import bench as benchmod
 from factory.runner import make_org, preview
 from factory.runstore import RunManager
 from factory.spec import MODULES, list_specs, load_spec
 
 ORG_URL = os.environ.get("ORG_URL", "http://localhost:8000")
+GATEWAY_URL = os.environ.get("GATEWAY_URL", "http://localhost:8080")
 PANEL_PATH = Path(__file__).with_name("panel.html")
+BENCH_PATH = Path(__file__).with_name("bench.html")
 
 app = FastAPI(title="Larkspur Agent Factory — control panel")
 runs = RunManager(ORG_URL)
@@ -29,9 +34,42 @@ def _org():
     return make_org(ORG_URL, agent_token="panel")
 
 
+_org_http = httpx.Client(base_url=ORG_URL, timeout=30)
+_gw_http = httpx.Client(base_url=GATEWAY_URL, timeout=140)
+
+
 @app.get("/", response_class=HTMLResponse)
 def index():
     return PANEL_PATH.read_text()
+
+
+@app.get("/bench", response_class=HTMLResponse)
+def bench_page():
+    return BENCH_PATH.read_text()
+
+
+@app.get("/api/bench/health")
+def bench_health():
+    gw_ok, gw = False, {}
+    try:
+        gw = _gw_http.get("/gateway/health").json()
+        gw_ok = True
+    except Exception as e:  # noqa: BLE001
+        gw = {"error": f"{type(e).__name__}: {e}"}
+    return {"gateway_url": GATEWAY_URL, "gateway_ok": gw_ok, "judge": gw.get("judge"), "org_ok": gw.get("org_ok"), "has_jev_key": gw.get("has_jev_key")}
+
+
+@app.get("/api/bench/probes")
+def bench_probes():
+    return benchmod.probe_summary()
+
+
+@app.post("/api/bench/run/{key}")
+def bench_run(key: str):
+    probe = next((p for p in benchmod.PROBES if p["key"] == key), None)
+    if probe is None:
+        raise HTTPException(404, f"no probe {key}")
+    return benchmod.run_probe(probe, _org_http, _gw_http)
 
 
 @app.get("/api/health")

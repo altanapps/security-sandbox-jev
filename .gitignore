@@ -16,3 +16,4 @@ runs/*
 # scratch
 panel.png
 .playwright-mcp/
+bench.png

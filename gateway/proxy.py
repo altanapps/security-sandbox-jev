@@ -128,6 +128,7 @@ def _pipeline(method: str, path: str, token: str | None, raw_body: bytes, body, 
             "agent": agent.token if agent else None, "method": method, "path": path,
             "module": extra.get("module"), "tier": extra.get("tier"), "decision": action,
             "reason": extra.get("reason"), "risk": extra.get("risk"), "confidence": extra.get("confidence"),
+            "policy_action": extra.get("policy_action"),
             "jev": extra.get("jev"), "judge": extra.get("judge"), "status": extra.get("status"),
             "latency_ms": int((time.time() - t0) * 1000), "jev_ms": extra.get("jev_ms"),
             "args": {"query": query, "body": body},
@@ -151,6 +152,7 @@ def _pipeline(method: str, path: str, token: str | None, raw_body: bytes, body, 
     j = judge().judge(state)
     d = decide(j, route.tier)
     jev_summary = {"values": j.values, "confidences": j.confidences, "error": j.error, "model": j.model}
+    policy_action = d.action
     action = d.action
 
     if action == "confirm":
@@ -160,15 +162,15 @@ def _pipeline(method: str, path: str, token: str | None, raw_body: bytes, body, 
             action = "block"
         else:
             p = pending.create(run_id=run_id, agent=agent.token, method=method, path=path, tier=route.tier, decision_reason=d.reason, signals=d.signals)
-            log("confirm", module=route.module, tier=route.tier, reason=d.reason, risk=d.risk, confidence=d.confidence, jev=jev_summary, judge=j.judge, jev_ms=j.latency_ms, status="pending")
+            log("confirm", module=route.module, tier=route.tier, reason=d.reason, risk=d.risk, confidence=d.confidence, jev=jev_summary, judge=j.judge, jev_ms=j.latency_ms, status="pending", policy_action=policy_action)
             action = pending.wait(p, agent.confirm_timeout)
 
     if action == "block":
-        log("block", module=route.module, tier=route.tier, reason=d.reason, risk=d.risk, confidence=d.confidence, jev=jev_summary, judge=j.judge, jev_ms=j.latency_ms, status=403)
+        log("block", module=route.module, tier=route.tier, reason=d.reason, risk=d.risk, confidence=d.confidence, jev=jev_summary, judge=j.judge, jev_ms=j.latency_ms, status=403, policy_action=policy_action)
         return JSONResponse({"blocked": True, "reason": d.reason, "jev": j.values}, status_code=403)
 
     upstream = _client.request(method, path, params=query, content=raw_body if raw_body else None, headers={"content-type": content_type} if raw_body else {})
-    log("allow", module=route.module, tier=route.tier, reason=d.reason, risk=d.risk, confidence=d.confidence, jev=jev_summary, judge=j.judge, jev_ms=j.latency_ms, status=upstream.status_code)
+    log("allow", module=route.module, tier=route.tier, reason=d.reason, risk=d.risk, confidence=d.confidence, jev=jev_summary, judge=j.judge, jev_ms=j.latency_ms, status=upstream.status_code, policy_action=policy_action)
     return Response(content=upstream.content, status_code=upstream.status_code, media_type=upstream.headers.get("content-type", "application/json"))
 
 
