@@ -10,3 +10,5 @@ org.db
 *.db
 .venv/
 .pytest_cache/
+runs/*
+!runs/.gitkeep

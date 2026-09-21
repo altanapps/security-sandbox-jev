@@ -9,6 +9,8 @@ dependencies = [
     "sqlmodel>=0.0.22",
     "faker>=30",
     "pyyaml>=6",
+    "anthropic>=0.40",
+    "httpx>=0.27",
 ]
 
 [dependency-groups]

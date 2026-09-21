@@ -10,6 +10,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.routing import APIRoute
 from sqlmodel import Session, select
 
 from org import db
@@ -46,8 +47,15 @@ async def lifespan(app: FastAPI):
     yield
 
 
+def _operation_id(route: APIRoute) -> str:
+    """Stable, tool-friendly operationIds: crm_list_contacts, billing_issue_refund."""
+    tag = route.tags[0] if route.tags else "org"
+    return f"{tag}_{route.name}"
+
+
 def create_app() -> FastAPI:
     app = FastAPI(
+        generate_unique_id_function=_operation_id,
         title="Larkspur Analytics — internal API",
         version="0.1.0",
         description="Internal systems of Larkspur Analytics Ltd (50 people, London). CRM, email, billing, HR, IAM, infra, files.",
