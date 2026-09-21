@@ -65,8 +65,26 @@
   .risk{font-family:var(--mono);font-size:10px;color:var(--ink-faint);text-align:right;margin-top:3px}
   .cfoot{padding:8px 14px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center}
   .cfoot button{padding:5px 12px;font-size:12px}
-  .reason{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);padding:0 14px 10px;white-space:pre-wrap;display:none}
-  .reason.show{display:block}
+  .step.clickable{cursor:pointer}
+  .step.clickable:hover{background:var(--panel-2)}
+  .step .chev{color:var(--ink-faint);font-size:10px;transition:transform .12s}
+  .step.open .chev{transform:rotate(90deg)}
+  .detail{border-top:1px dashed var(--line);background:var(--bg);padding:0;display:none}
+  .detail.show{display:block}
+  .detail .dhead{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);padding:9px 14px 4px}
+  .qrow{padding:7px 14px;border-top:1px solid var(--line)}
+  .qrow:first-of-type{border-top:none}
+  .qtop{display:flex;gap:8px;align-items:baseline}
+  .qtop .qlabel{font-weight:600;font-size:12px;flex:1}
+  .qtop .qans{font-family:var(--mono);font-size:11.5px}
+  .qtop .qans.yes{color:var(--block)} .qtop .qans.no{color:var(--allow)} .qtop .qans.mid{color:var(--confirm)}
+  .qtop .qconf{font-family:var(--mono);font-size:10px;color:var(--ink-faint)}
+  .qasks{font-size:11px;color:var(--ink-dim);margin-top:3px;font-style:italic}
+  .qmeta{font-family:var(--mono);font-size:10px;color:var(--ink-faint);margin-top:2px}
+  .dmath{padding:9px 14px;border-top:1px solid var(--line);background:var(--panel-2)}
+  .dmath .formula{font-family:var(--mono);font-size:11px;color:var(--ink-dim)}
+  .dmath .rule{font-size:11.5px;color:var(--ink);margin-top:4px}
+  .dnote{padding:9px 14px;color:var(--ink-faint);font-size:11.5px}
   .spin{width:9px;height:9px;border-radius:50%;background:var(--accent);animation:pulse 1s infinite;display:inline-block}
   @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
 </style>
@@ -125,11 +143,12 @@ function card(p){
   head.append(perms);
   c.append(head);
   const steps=el("div","steps");
-  for(const s of p.steps){
-    const row=el("div","step");row.dataset.op=s.op;
-    row.append(el("span","expect","·"));
+  p.steps.forEach((s,i)=>{
+    const row=el("div","step");row.dataset.op=s.op;row.dataset.idx=i;
+    const ex=el("span","expect","·");row.append(ex);
     const mid=el("div");
-    mid.append(el("div","op",s.op));
+    const opline=el("div","op");opline.append(el("span","chev","▸"));opline.append(document.createTextNode(" "+s.op));
+    mid.append(opline);
     mid.append(el("div","note",s.note));
     mid.append(el("div","want","expect "+(s.intent==="allow"?"pass":"stop")));
     row.append(mid);
@@ -137,16 +156,18 @@ function card(p){
     right.append(el("span","pill pending","—"));
     right.append(el("div","risk",""));
     row.append(right);
+    row.onclick=()=>{const d=$("#detail-"+p.key+"-"+i);if(d){d.classList.toggle("show");row.classList.toggle("open");}};
     steps.append(row);
-  }
+    const detail=el("div","detail");detail.id="detail-"+p.key+"-"+i;
+    steps.append(detail);
+  });
   c.append(steps);
   const foot=el("div","cfoot");
   const run=el("button",null,"Run");run.onclick=()=>runOne(p.key);
-  const why=el("button",null,"Why");why.onclick=()=>{const r=$("#reason-"+p.key);if(r)r.classList.toggle("show");};
+  const why=el("button",null,"Show Jev's answers");
+  why.onclick=()=>{const opened=c.querySelector(".detail.show");c.querySelectorAll(".detail").forEach(d=>d.classList.toggle("show",!opened));c.querySelectorAll(".step").forEach(r=>r.classList.toggle("open",!opened));};
   foot.append(run,why);
   c.append(foot);
-  const reason=el("div","reason");reason.id="reason-"+p.key;
-  c.append(reason);
   return c;
 }
 
@@ -164,12 +185,18 @@ async function runOne(key){
 
 function spinEl(){const s=el("span","spin");return s;}
 
+function ansClass(q){
+  if(q.type!=="noul") return "mid";
+  const v=+q.value;
+  return v>=0.55?"yes":(v<=0.45?"no":"mid");
+}
+
 function paint(key,d){
   const c=$("#card-"+key);
   const rows=c.querySelectorAll(".step");
-  const reason=$("#reason-"+key);reason.innerHTML="";
   d.results.forEach((r,i)=>{
     const row=rows[i];if(!row)return;
+    row.classList.add("clickable");
     const pill=row.querySelector(".pill");
     const act=r.policy_action||"—";
     pill.className="pill "+act;
@@ -178,7 +205,34 @@ function paint(key,d){
     const ex=row.querySelector(".expect");
     ex.textContent=r.as_expected?"✓":"✗";
     ex.className="expect "+(r.as_expected?"ok":"bad");
-    reason.append(el("div",null,r.op+": "+(r.reason||"")));
+    // granular detail: the exact questions Jev was asked + its answers
+    const det=$("#detail-"+key+"-"+i);
+    if(det){
+      det.innerHTML="";
+      const b=r.breakdown||{};
+      if(!b.questions||!b.questions.length){
+        det.append(el("div","dnote",(b.note||"no judgement recorded for this action")));
+      }else{
+        det.append(el("div","dhead","The "+b.questions.length+" questions Jev was asked — and its answers"));
+        for(const q of b.questions){
+          const qr=el("div","qrow");
+          const top=el("div","qtop");
+          top.append(el("span","qlabel",q.label));
+          top.append(el("span","qans "+ansClass(q),q.answer));
+          if(q.confidence!=null) top.append(el("span","qconf","conf "+(+q.confidence).toFixed(2)));
+          qr.append(top);
+          qr.append(el("div","qasks","“"+q.asks+"”"));
+          qr.append(el("div","qmeta",q.type+(q.options?" · "+q.options:"")));
+          det.append(qr);
+        }
+        if(b.decision){
+          const m=el("div","dmath");
+          m.append(el("div","formula",b.decision.formula));
+          m.append(el("div","rule","→ "+(b.decision.action||"").toUpperCase()+": "+b.decision.rule));
+          det.append(m);
+        }
+      }
+    }
   });
   const res=c.querySelector(".res");
   const pass=d.passed===d.total;

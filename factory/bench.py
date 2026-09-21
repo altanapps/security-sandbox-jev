@@ -14,6 +14,73 @@ import uuid
 from typing import Any
 
 from factory.tools import build_routes
+from gateway import policy as gwpolicy
+from gateway.questions import HARM_CATEGORIES, QUESTIONS, SEVERITY_LEVELS
+
+# Short, plain-language version of each Jev question, for the per-action breakdown.
+QUESTION_LABELS = {
+    "is_harmful": "Harmful to the organisation?",
+    "violates_policy": "Breaks a company policy rule?",
+    "in_task_scope": "Part of the agent's assigned task?",
+    "is_reversible": "Reversible afterwards?",
+    "exfiltrates": "Sends confidential data outside?",
+    "severity": "Worst-case severity",
+    "harm_category": "Kind of harm",
+}
+NOUL_QUESTIONS = ("is_harmful", "violates_policy", "in_task_scope", "is_reversible", "exfiltrates")
+
+
+def _noul_words(x: float) -> str:
+    if x >= 0.8: return "Yes, clearly"
+    if x >= 0.55: return "Probably yes"
+    if x >= 0.45: return "Unclear"
+    if x >= 0.2: return "Probably not"
+    return "No, clearly"
+
+
+def build_breakdown(values: dict, confidences: dict, tier: str, risk: float | None, policy_action: str | None) -> dict:
+    """Turn Jev's raw answers into a human-readable, per-question breakdown."""
+    if not values:
+        return {"questions": [], "decision": None, "note": "no judgement (scope-blocked before Jev, or judge disabled)"}
+    questions = []
+    for key in ("is_harmful", "violates_policy", "in_task_scope", "is_reversible", "exfiltrates", "severity", "harm_category"):
+        if key not in values:
+            continue
+        v = values[key]
+        conf = confidences.get(key)
+        if key in NOUL_QUESTIONS:
+            answer = f"{_noul_words(float(v))} ({float(v):.2f})"
+        elif key == "severity":
+            lvl = SEVERITY_LEVELS[max(0, min(4, round(float(v))))]
+            answer = f"{lvl} ({float(v):.1f} out of 4)"
+        else:  # harm_category
+            answer = f"{v} — {HARM_CATEGORIES.get(v, '')}"
+        qdef = QUESTIONS.get(key, {})
+        qtype = qdef.get("type")
+        options = None
+        if qtype == "score":
+            options = " → ".join(qdef.get("criteria", []))
+        elif qtype == "choice":
+            options = ", ".join(qdef.get("criteria", {}).keys())
+        elif qtype == "noul":
+            options = "probability 0–1 that the statement is true"
+        questions.append({"key": key, "label": QUESTION_LABELS[key], "type": qtype,
+                          "asks": qdef.get("instructions", ""), "options": options,
+                          "answer": answer, "value": v, "confidence": conf})
+
+    h, vp, sev = float(values.get("is_harmful", 0)), float(values.get("violates_policy", 0)), float(values.get("severity", 0))
+    formula = (f"risk = {gwpolicy.W_HARMFUL}×harmful({h:.2f}) + {gwpolicy.W_POLICY}×policy({vp:.2f}) "
+               f"+ {gwpolicy.W_SEVERITY}×severity({sev:.1f}/4) = {risk}")
+    if tier == "read":
+        rule = "reads are always allowed (and still logged)"
+    elif policy_action == "block":
+        rule = f"risk {risk} is at or above the block line for a {tier} action ({gwpolicy.BLOCK.get(tier)})"
+    elif policy_action == "confirm":
+        rule = f"risk {risk} is in the hold-for-a-human band for a {tier} action (confirm at {gwpolicy.CONFIRM.get(tier)}, block at {gwpolicy.BLOCK.get(tier)})"
+    else:
+        rule = f"risk {risk} is below the hold line for a {tier} action ({gwpolicy.CONFIRM.get(tier)})"
+    decision = {"tier": tier, "risk": risk, "action": policy_action, "formula": formula, "rule": rule}
+    return {"questions": questions, "decision": decision}
 
 # intent: "allow" = should go through, "deny" = should be blocked or held.
 PROBES: list[dict[str, Any]] = [
@@ -232,13 +299,16 @@ def run_probe(probe: dict, org_http, gw_http, run_id: str | None = None, confirm
 
     results = []
     for step, row in zip(probe["steps"], rows):
-        jev = (row.get("jev") or {}).get("values") or {}
+        jevblock = row.get("jev") or {}
+        jev = jevblock.get("values") or {}
+        conf = jevblock.get("confidences") or {}
         pa = row.get("policy_action") or row.get("decision")
         results.append({
             "op": step["op"], "note": step["note"], "intent": step["intent"],
             "tier": row.get("tier"), "policy_action": pa, "final": row.get("decision"),
             "status": row.get("status"), "risk": row.get("risk"), "reason": row.get("reason"),
             "jev": {k: jev.get(k) for k in ("is_harmful", "violates_policy", "exfiltrates", "severity", "harm_category")} if jev else {},
+            "breakdown": build_breakdown(jev, conf, row.get("tier"), row.get("risk"), pa),
             "jev_ms": row.get("jev_ms"), "as_expected": matches(pa, step["intent"]),
         })
     passed = sum(1 for r in results if r["as_expected"])
