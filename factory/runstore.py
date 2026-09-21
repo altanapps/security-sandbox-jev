@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import threading
+import time
 import traceback
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -27,6 +28,12 @@ class RunHandle:
     error: str | None = None
     summary: dict | None = None
     started: str = field(default_factory=lambda: datetime.now().isoformat(timespec="seconds"))
+    started_ts: float = field(default_factory=time.monotonic)
+    finished_ts: float | None = None
+
+    @property
+    def elapsed(self) -> float:
+        return round((self.finished_ts or time.monotonic()) - self.started_ts, 1)
 
 
 class RunManager:
@@ -58,6 +65,8 @@ class RunManager:
             handle.status = "error"
             handle.error = f"{type(e).__name__}: {e}"
             trace.event("error", error=handle.error, traceback=traceback.format_exc())
+        finally:
+            handle.finished_ts = time.monotonic()
 
     # --- reads ---------------------------------------------------------------
 
@@ -84,6 +93,9 @@ class RunManager:
             h = self.handle(run_id)
             s = self.summary(run_id)
             live = h.status if h else ("done" if s else "unknown")
+            seconds = (s or {}).get("seconds")
+            if seconds is None and h is not None and live == "running":
+                seconds = h.elapsed
             rows.append({
                 "run_id": run_id,
                 "agent": (s or {}).get("agent") or (h.agent if h else run_id.split("-", 3)[-1]),
@@ -92,6 +104,7 @@ class RunManager:
                 "steps": (s or {}).get("steps"),
                 "tool_calls": len((s or {}).get("tool_calls", [])) if s else None,
                 "cost_usd": (s or {}).get("cost_usd"),
+                "seconds": seconds,
                 "error": h.error if h else None,
             })
         return rows

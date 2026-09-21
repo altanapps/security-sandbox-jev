@@ -105,7 +105,8 @@
   select { font-family: var(--mono); font-size: 12px; background: var(--panel-2); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 7px 8px; }
 
   .runs { margin-top: 8px; }
-  .runrow { display: grid; grid-template-columns: 12px 1fr auto auto auto; gap: 10px; align-items: center; padding: 8px 14px; border-bottom: 1px solid var(--line); font-size: 12px; cursor: pointer; }
+  .runrow { display: grid; grid-template-columns: 12px 1fr auto auto auto auto; gap: 10px; align-items: center; padding: 8px 14px; border-bottom: 1px solid var(--line); font-size: 12px; cursor: pointer; }
+  .runrow .dur { font-family: var(--mono); color: var(--ink-dim); font-variant-numeric: tabular-nums; text-align: right; }
   .runrow:hover { background: var(--panel); }
   .runrow .rid { font-family: var(--mono); color: var(--ink-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .runrow .meta { font-family: var(--mono); color: var(--ink-faint); }
@@ -118,7 +119,8 @@
   dialog::backdrop { background: rgba(0,0,0,.6); }
   .modal-head { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
   .modal-head h3 { margin: 0; font-size: 14px; font-family: var(--mono); }
-  .modal-head button { margin-left: auto; padding: 4px 10px; }
+  .modal-head .clock { margin-left: auto; font-family: var(--mono); font-size: 13px; color: var(--run); font-variant-numeric: tabular-nums; }
+  .modal-head button { padding: 4px 10px; }
   .timeline { padding: 12px 18px; max-height: 62vh; overflow-y: auto; }
   .ev { border-left: 2px solid var(--line); padding: 6px 0 6px 14px; margin-left: 4px; }
   .ev .k { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-faint); }
@@ -157,7 +159,8 @@
   <div class="modal-head">
     <span class="spin" id="modal-spin"></span>
     <h3 id="modal-title">run</h3>
-    <button class="ghost" onclick="document.getElementById('run-modal').close()">Close</button>
+    <span class="clock" id="modal-clock">0.0s</span>
+    <button class="ghost" onclick="stopClock(); document.getElementById('run-modal').close()">Close</button>
   </div>
   <div class="timeline" id="timeline"></div>
   <div class="summary-line" id="modal-summary"></div>
@@ -311,6 +314,7 @@ async function refreshRuns(agentFilter) {
     row.append(el("span", "rid", r.run_id));
     row.append(el("span", "meta", r.model || ""));
     row.append(el("span", "meta", r.tool_calls != null ? r.tool_calls + " calls" : ""));
+    row.append(el("span", "dur", fmtSecs(r.seconds)));
     row.append(el("span", "status " + r.status, r.status + (r.cost_usd != null ? "  $" + r.cost_usd : "")));
     row.onclick = () => openRun(r.run_id);
     body.append(row);
@@ -326,7 +330,22 @@ async function doLaunch(name, model) {
   refreshRuns(name);
 }
 
-let pollTimer = null;
+let pollTimer = null, clockTimer = null, clockBase = 0, clockAt = 0;
+function startClock(seconds) {
+  stopClock();
+  clockBase = seconds || 0; clockAt = performance.now();
+  $("#modal-clock").textContent = fmtSecs(clockBase);
+  clockTimer = setInterval(() => {
+    const live = clockBase + (performance.now() - clockAt) / 1000;
+    $("#modal-clock").textContent = live.toFixed(1) + "s";
+  }, 100);
+}
+function stopClock(finalSeconds) {
+  if (clockTimer) { clearInterval(clockTimer); clockTimer = null; }
+  if (finalSeconds != null) $("#modal-clock").textContent = fmtSecs(finalSeconds);
+}
+function fmtSecs(x) { return x == null ? "—" : (x < 60 ? x.toFixed(1) + "s" : Math.floor(x/60) + "m " + Math.round(x%60) + "s"); }
+
 async function openRun(runId) {
   const modal = $("#run-modal");
   $("#modal-title").textContent = runId;
@@ -337,8 +356,10 @@ async function openRun(runId) {
   const tick = async () => {
     const d = await j("/api/runs/" + runId);
     renderTimeline(d);
-    $("#modal-spin").style.visibility = d.status === "running" ? "visible" : "hidden";
-    if (d.status !== "running") { clearInterval(pollTimer); pollTimer = null; if (selected) refreshRuns(selected); }
+    const running = d.status === "running";
+    $("#modal-spin").style.visibility = running ? "visible" : "hidden";
+    if (running) { if (!clockTimer) startClock(d.elapsed); }
+    else { stopClock(d.elapsed); clearInterval(pollTimer); pollTimer = null; if (selected) refreshRuns(selected); }
   };
   await tick();
   pollTimer = setInterval(tick, 1200);

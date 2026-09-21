@@ -19,7 +19,7 @@ from factory.runstore import RunManager
 from factory.spec import MODULES, list_specs, load_spec
 
 ORG_URL = os.environ.get("ORG_URL", "http://localhost:8000")
-PAGE = (Path(__file__).with_name("panel.html")).read_text()
+PANEL_PATH = Path(__file__).with_name("panel.html")
 
 app = FastAPI(title="Larkspur Agent Factory — control panel")
 runs = RunManager(ORG_URL)
@@ -31,7 +31,7 @@ def _org():
 
 @app.get("/", response_class=HTMLResponse)
 def index():
-    return PAGE
+    return PANEL_PATH.read_text()
 
 
 @app.get("/api/health")
@@ -111,4 +111,12 @@ def run_detail(run_id: str):
     if not events and not summary and h is None:
         raise HTTPException(404, f"no run {run_id}")
     status = h.status if h else ("done" if summary else "unknown")
-    return {"run_id": run_id, "status": status, "error": h.error if h else None, "summary": summary, "events": events}
+    if summary and summary.get("seconds") is not None:
+        elapsed = summary["seconds"]
+    elif h is not None:
+        elapsed = h.elapsed
+    elif events:
+        elapsed = events[-1].get("t")
+    else:
+        elapsed = None
+    return {"run_id": run_id, "status": status, "elapsed": elapsed, "error": h.error if h else None, "summary": summary, "events": events}
