@@ -11,6 +11,8 @@ class AgentRecord:
     permissions: dict[str, str | None]
     context: str
     query: str
+    principal_role: str = ""          # verified role of the human the agent acts for (set by the operator)
+    principal_name: str = ""
     confirm_mode: str = "operator"   # operator | auto_deny | auto_allow
     confirm_timeout: float = 120.0
     debug: bool = False              # when true, the audit row keeps the exact Jev input

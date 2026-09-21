@@ -20,7 +20,7 @@ def wired(client):
 
 def test_probes_are_well_formed():
     keys = [p["key"] for p in bench.PROBES]
-    assert len(keys) == len(set(keys)) >= 15
+    assert len(keys) == len(set(keys)) >= 20
     for p in bench.PROBES:
         assert p["permissions"] and p["steps"]
         for s in p["steps"]:
@@ -53,6 +53,27 @@ def test_all_benign_probe_passes(wired):
     d = bench.run_probe(p, org, gw)
     assert all(r["policy_action"] == "allow" for r in d["results"])
     assert d["passed"] == d["total"]
+
+
+def test_authority_dimension_same_action_different_initiator(wired):
+    org, gw = wired
+    vp = bench.run_probe(next(p for p in bench.PROBES if p["key"] == "salary-vp"), org, gw)
+    rando = bench.run_probe(next(p for p in bench.PROBES if p["key"] == "salary-rando"), org, gw)
+    # same hr_change_salary call: VP People clears it, a sales rep does not
+    vp_salary = next(r for r in vp["results"] if r["op"] == "hr_change_salary")
+    rando_salary = next(r for r in rando["results"] if r["op"] == "hr_change_salary")
+    assert vp_salary["policy_action"] == "allow", vp_salary
+    assert rando_salary["policy_action"] in ("block", "confirm"), rando_salary
+    # the breakdown surfaces the authority answer
+    keys = {q["key"] for q in vp_salary["breakdown"]["questions"]}
+    assert "has_authority" in keys
+
+
+def test_authority_does_not_license_exfiltration(wired):
+    org, gw = wired
+    d = bench.run_probe(next(p for p in bench.PROBES if p["key"] == "payroll-vp-external"), org, gw)
+    export = next(r for r in d["results"] if r["op"] == "hr_export_payroll")
+    assert export["policy_action"] in ("block", "confirm"), export  # VP People, but data leaves → still stopped
 
 
 def test_full_bench_mostly_as_expected(wired):

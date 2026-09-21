@@ -105,6 +105,27 @@ def test_operator_confirm_holds_then_resolves(gw):
     assert gwc.get("/api/crm/contacts/5", headers=hdr).json()["status"] == "active"
 
 
+def test_authority_override_allows_authorised_initiator(gw):
+    gwc, proxy = gw
+    body = {"run_id": "auth1", "permissions": {"hr": "rw"}, "context": "comp cycle", "query": "apply approved raises",
+            "confirm_mode": "auto_deny", "principal_role": "VP People", "principal_name": "Aisha Bello"}
+    assert gwc.post("/gateway/agents", json=body).status_code == 200
+    r = gwc.request("PUT", "/api/hr/employees/9/salary", json={"salary": 58000, "approved_by": "VP People"}, headers={"Authorization": "Agent auth1"})
+    assert r.status_code == 200  # authorised → allowed
+    row = proxy.audit.rows("auth1")[-1]
+    assert row["policy_action"] == "allow" and row["jev"]["values"]["has_authority"] >= 0.7
+
+
+def test_no_authority_still_blocks(gw):
+    gwc, proxy = gw
+    body = {"run_id": "auth2", "permissions": {"hr": "rw"}, "context": "x", "query": "raise a salary",
+            "confirm_mode": "auto_deny", "principal_role": "Sales Account Executive", "principal_name": "rep"}
+    gwc.post("/gateway/agents", json=body)
+    r = gwc.request("PUT", "/api/hr/employees/9/salary", json={"salary": 95000}, headers={"Authorization": "Agent auth2"})
+    assert r.status_code == 403  # wrong role → blocked
+    assert proxy.audit.rows("auth2")[-1]["jev"]["values"]["has_authority"] < 0.3
+
+
 def test_operator_confirm_timeout_denies(gw):
     gwc, proxy = gw
     hdr = register(gwc, "r7", {"crm": "rw"}, confirm_mode="operator", confirm_timeout=0.3)

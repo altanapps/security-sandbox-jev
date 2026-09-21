@@ -96,7 +96,7 @@ def health():
 
 @app.post("/gateway/agents")
 def register(body: dict):
-    rec = AgentRecord(token=body["run_id"], permissions=body["permissions"], context=body.get("context", ""), query=body.get("query", ""), confirm_mode=body.get("confirm_mode", "operator"), confirm_timeout=float(body.get("confirm_timeout", 120.0)), debug=bool(body.get("debug", False)), meta=body.get("meta", {}))
+    rec = AgentRecord(token=body["run_id"], permissions=body["permissions"], context=body.get("context", ""), query=body.get("query", ""), confirm_mode=body.get("confirm_mode", "operator"), confirm_timeout=float(body.get("confirm_timeout", 120.0)), debug=bool(body.get("debug", False)), principal_role=body.get("principal_role", ""), principal_name=body.get("principal_name", ""), meta=body.get("meta", {}))
     registry.register(rec)
     return {"registered": rec.token, "judge": judge().name}
 

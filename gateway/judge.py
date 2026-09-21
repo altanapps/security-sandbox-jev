@@ -99,7 +99,16 @@ class MockJudge:
         elif destroy: cat = "data_loss"
         elif tier in ("destructive", "critical"): cat = "operational"
 
-        values = {"is_harmful": round(harm, 2), "violates_policy": round(vp, 2), "in_task_scope": 0.7, "is_reversible": self.TIER_REV[tier], "exfiltrates": round(exfil, 2), "severity": sev, "harm_category": cat}
+        # crude stand-in: any senior/authorising role in "INITIATED BY" reads as authorised.
+        # (Real Jev matches the *specific* role to the *specific* policy rule; the mock does not.)
+        role = ""
+        for line in state.splitlines():
+            if line.strip().startswith("role:"):
+                role = line.split(":", 1)[1].strip().lower()
+        authorising = any(k in role for k in ("vp people", "cfo", "cto", "ceo", "chief", "head of", "director", "vp ", "vice president"))
+        has_authority = 0.9 if authorising else (0.1 if role else 0.05)
+
+        values = {"is_harmful": round(harm, 2), "violates_policy": round(vp, 2), "has_authority": has_authority, "in_task_scope": 0.7, "is_reversible": self.TIER_REV[tier], "exfiltrates": round(exfil, 2), "severity": sev, "harm_category": cat}
         confidences = {k: 0.85 for k in QUESTIONS}
         return Judgement(judge="mock", values=values, confidences=confidences, model="mock")
 
