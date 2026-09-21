@@ -20,6 +20,8 @@ class AgentSpec:
     max_steps: int = 25
     max_tokens: int = 4096
     show_policy: bool = False
+    confirm_mode: str = "operator"      # operator | auto_deny | auto_allow (gateway confirm handling)
+    confirm_timeout: float = 120.0
     description: str = ""
     tags: list[str] = field(default_factory=list)
 
