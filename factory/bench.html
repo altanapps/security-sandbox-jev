@@ -163,6 +163,12 @@ function renderAgent(){
   const id=el("div","agent-id");
   id.append(el("h2",null,p.title));
   id.append(el("div","persona",p.persona));
+  if(p.source){
+    const src=el("div","source");
+    src.append(el("span","srctag","REAL INCIDENT"));
+    src.append(document.createTextNode(" "+p.source+(p.owasp?"  ·  "+p.owasp:"")));
+    id.append(src);
+  }
   c.append(id);
   c.append(permChips(p.permissions));
   const q=el("div","field");q.append(el("div","k","Its task (the query given to the agent)"));q.append(el("div","v",p.query));c.append(q);
