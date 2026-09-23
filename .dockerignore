@@ -1,0 +1,12 @@
+.git
+.venv
+**/__pycache__
+.pytest_cache
+runs
+*.db
+*.mp4
+*.png
+*.excalidraw
+.playwright-mcp
+.env
+.claude
