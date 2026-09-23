@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agent Breaches</title>
+<style>
+  :root{
+    --bg:#0b0e13;--panel:#161b22;--panel-2:#1c232c;--line:#2a323d;
+    --ink:#eef3f8;--dim:#93a1b0;--faint:#66727f;--accent:#4c9be8;
+    --allow:#3ecf8e;--block:#ef5a6f;--confirm:#e0a93a;
+    --mono:ui-monospace,"SF Mono",Menlo,monospace;--sans:"Inter",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .mono{font-family:var(--mono)}
+  header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:13px max(18px,env(safe-area-inset-left))}
+  header h1{font-size:15px;margin:0;font-weight:600;letter-spacing:.02em}
+  header h1 .dim{color:var(--faint);font-weight:400}
+  header .sp{margin-left:auto;display:flex;gap:12px;align-items:center}
+  header a{color:var(--dim);font-size:12px;text-decoration:none;border:1px solid var(--line);padding:4px 10px;border-radius:6px}
+  header a:hover{border-color:var(--faint)}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:var(--faint)}
+  .dot.ok{background:var(--allow)}.dot.bad{background:var(--block)}
+  .health{font-size:12px;color:var(--dim)}
+  main{max-width:1080px;margin:0 auto;padding:26px max(18px,env(safe-area-inset-left)) 70px}
+  .lede{color:var(--dim);max-width:70ch;margin:0 0 8px}
+  .lede b{color:var(--ink)}
+  .runall{margin:16px 0 8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  button{font-family:var(--sans);font-size:13px;font-weight:550;border-radius:8px;padding:8px 14px;cursor:pointer;border:1px solid var(--line);background:var(--panel-2);color:var(--ink)}
+  button:hover{border-color:var(--faint)}
+  button.go{background:var(--accent);border-color:var(--accent);color:#06121f}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .tally{font-family:var(--mono);font-size:13px;color:var(--dim)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0}
+  .card.caught{border-color:color-mix(in srgb,var(--allow) 40%,var(--line))}
+  .top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .top h2{font-size:19px;margin:0;font-weight:650;letter-spacing:-.01em}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+  .tag{font-family:var(--mono);font-size:10.5px;padding:2px 8px;border-radius:5px;border:1px solid var(--line);color:var(--faint)}
+  .tag.owasp{color:var(--confirm);border-color:color-mix(in srgb,var(--confirm) 40%,transparent)}
+  .tag.atlas{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+  .real{color:var(--dim);margin:12px 0 4px;max-width:82ch}
+  .src{font-size:12.5px;margin:6px 0 16px}
+  .src a{color:var(--accent);text-decoration:none}.src a:hover{text-decoration:underline}
+  .test{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:15px}
+  .test .in{flex:1;min-width:260px}
+  .test .lab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint)}
+  .test .act{font-family:var(--mono);font-size:13px;margin-top:3px}
+  .test .act .op{color:var(--ink)}
+  .test .act .note{color:var(--dim)}
+  .verdict{display:flex;align-items:center;gap:12px}
+  .pill{font-family:var(--mono);font-weight:700;font-size:13px;padding:6px 14px;border-radius:8px;min-width:96px;text-align:center}
+  .pill.pending{color:var(--faint);background:var(--panel-2)}
+  .pill.allow{color:var(--allow);background:color-mix(in srgb,var(--allow) 15%,transparent)}
+  .pill.block{color:var(--block);background:color-mix(in srgb,var(--block) 15%,transparent)}
+  .pill.confirm{color:var(--confirm);background:color-mix(in srgb,var(--confirm) 15%,transparent)}
+  .nums{font-family:var(--mono);font-size:12px;color:var(--dim)}
+  .caughtline{font-size:12.5px;color:var(--allow);margin-top:10px}
+  .footnote{color:var(--faint);font-size:12.5px;margin-top:26px;max-width:74ch}
+  .footnote a{color:var(--accent)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Agent Breaches <span class="dim">/ does the gateway catch them?</span></h1>
+  <div class="sp">
+    <span class="health" id="health"><span class="dot"></span>gateway</span>
+    <a href="/bench">Bench</a><a href="/">Agents</a>
+  </div>
+</header>
+<main>
+  <p class="lede">Each card is a <b>documented, real-world AI-agent breach</b>. Underneath, the same class of action runs against our sandbox company, through the gateway, judged by Jev. Green means the gateway stopped it. Click a card to fire it live, or run them all.</p>
+  <div class="runall">
+    <button class="go" id="runall">Run all against the gateway</button>
+    <span class="tally" id="tally"></span>
+  </div>
+  <div id="list"></div>
+  <p class="footnote">Sourced from the <a href="https://incidentdatabase.ai/">AI Incident Database</a>, public CVE disclosures, and the OWASP Top 10 for Agentic Applications. Full mapping in <span class="mono">docs/incident-coverage.md</span>. Jev's numbers vary slightly per run.</p>
+</main>
+<script>
+const $=(s,r=document)=>r.querySelector(s), el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;};
+async function j(u,o){const r=await fetch(u,o);return r.json();}
+let ITEMS=[];
+
+async function health(){
+  const h=await j("/api/bench/health");
+  const g=$("#health");
+  g.querySelector(".dot").className="dot "+(h.gateway_ok&&h.org_ok?"ok":"bad");
+  g.lastChild.textContent=h.gateway_ok?" gateway up · judge "+(h.judge||"?"):" gateway down";
+}
+async function load(){
+  ITEMS=await j("/api/bench/incidents");
+  const list=$("#list");list.innerHTML="";
+  for(const it of ITEMS) list.append(card(it));
+}
+function card(it){
+  const c=el("div","card");c.id="c-"+it.key;
+  const top=el("div","top");
+  top.append(el("h2",null,it.title));
+  const tags=el("div","tags");
+  if(it.owasp) tags.append(el("span","tag owasp",it.owasp));
+  if(it.atlas) tags.append(el("span","tag atlas","ATLAS: "+it.atlas));
+  top.append(tags);
+  c.append(top);
+  if(it.real) c.append(el("div","real",it.real));
+  const src=el("div","src");
+  src.append(el("span",null,"Source: "));
+  if(it.incident_url){const a=el("a",null,it.source);a.href=it.incident_url;a.target="_blank";src.append(a);}
+  else src.append(el("span",null,it.source||""));
+  c.append(src);
+  const test=el("div","test");
+  const inb=el("div","in");
+  inb.append(el("div","lab","In our sandbox, the dangerous action is"));
+  const act=el("div","act");
+  act.append(el("span","op",it.danger_op||""));
+  act.append(document.createTextNode("  —  "));
+  act.append(el("span","note",it.danger_note||""));
+  inb.append(act);
+  test.append(inb);
+  const v=el("div","verdict");
+  const btn=el("button",null,"Run");btn.onclick=()=>runOne(it.key);
+  const pill=el("span","pill pending","not run");pill.id="pill-"+it.key;
+  const nums=el("span","nums");nums.id="nums-"+it.key;
+  v.append(btn,pill,nums);
+  test.append(v);
+  c.append(test);
+  return c;
+}
+async function runOne(key){
+  const pill=$("#pill-"+key);pill.className="pill pending";pill.textContent="…";
+  $("#nums-"+key).textContent="";
+  const d=await j("/api/bench/run/"+key,{method:"POST"});
+  const r=d.results[d.results.length-1]; // the dangerous step
+  const act=r.policy_action||"—";
+  pill.className="pill "+act;pill.textContent=act.toUpperCase();
+  const jv=r.jev||{};
+  $("#nums-"+key).textContent="harmful "+(jv.is_harmful??"-")+" · policy "+(jv.violates_policy??"-")+" · exfil "+(jv.exfiltrates??"-");
+  const c=$("#c-"+key);c.classList.toggle("caught", act==="block"||act==="confirm");
+  let cl=c.querySelector(".caughtline"); if(cl) cl.remove();
+  const line=el("div","caughtline", act==="allow"?"":"Gateway "+(act==="block"?"blocked":"held")+" it before it reached the company.");
+  if(line.textContent) c.append(line);
+  updateTally();
+}
+async function runAll(){const b=$("#runall");b.disabled=true;b.textContent="Running…";await Promise.all(ITEMS.map(i=>runOne(i.key)));b.disabled=false;b.textContent="Run all against the gateway";}
+function updateTally(){
+  let caught=0,run=0;
+  for(const it of ITEMS){const p=$("#pill-"+it.key);if(p&&!["not run","…"].includes(p.textContent.toLowerCase())){run++;if(p.classList.contains("block")||p.classList.contains("confirm"))caught++;}}
+  $("#tally").textContent=run?caught+" of "+run+" stopped":"";
+}
+$("#runall").onclick=runAll;
+health();load();setInterval(health,5000);
+</script>
+</body>
+</html>

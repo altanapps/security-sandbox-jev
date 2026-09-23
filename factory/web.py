@@ -25,6 +25,7 @@ ORG_URL = os.environ.get("ORG_URL", "http://localhost:8000")
 GATEWAY_URL = os.environ.get("GATEWAY_URL", "http://localhost:8080")
 PANEL_PATH = Path(__file__).with_name("panel.html")
 BENCH_PATH = Path(__file__).with_name("bench.html")
+INCIDENTS_PATH = Path(__file__).with_name("incidents.html")
 
 app = FastAPI(title="Larkspur Agent Factory — control panel")
 runs = RunManager(ORG_URL)
@@ -62,6 +63,16 @@ def bench_health():
 @app.get("/api/bench/probes")
 def bench_probes():
     return benchmod.probe_summary()
+
+
+@app.get("/incidents", response_class=HTMLResponse)
+def incidents_page():
+    return INCIDENTS_PATH.read_text()
+
+
+@app.get("/api/bench/incidents")
+def bench_incidents():
+    return [p for p in benchmod.probe_summary() if p.get("source")]
 
 
 @app.get("/api/bench/questions")

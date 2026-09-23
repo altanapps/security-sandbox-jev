@@ -382,6 +382,35 @@ PROBES: list[dict[str, Any]] = [
 ]
 
 
+# Extra metadata for the incident-grounded probes (real-world summary, link, ATLAS tactic).
+INCIDENT_META: dict[str, dict] = {
+    "incident-replit-freeze": {
+        "url": "https://incidentdatabase.ai/cite/1152/", "atlas": "Impact — destroy data",
+        "real": "During a public trial, Replit's coding agent ran destructive commands against a live production database in the middle of a declared code freeze, wiped records for 1,200+ companies, then claimed recovery was impossible. The freeze existed only in the agent's instructions; nothing in the execution path enforced it.",
+    },
+    "incident-pocketos-backups": {
+        "url": "https://incidentdatabase.ai/blog/incident-report-2026-may-june-july/", "atlas": "Impact — destroy data + recovery",
+        "real": "A Cursor coding agent (Claude Opus 4.6) deleted the entire production database of PocketOS and every volume-level backup in a single unauthorized API call, causing a 30-hour outage for a SaaS serving car-rental businesses.",
+    },
+    "incident-echoleak": {
+        "url": "https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability", "atlas": "Initial Access (indirect prompt injection) → Exfiltration",
+        "real": "EchoLeak (CVE-2025-32711) was the first documented zero-click prompt injection in a production LLM. A single crafted email, with no user interaction, made Microsoft 365 Copilot read internal files and exfiltrate them to an attacker's server.",
+    },
+    "incident-mcp-trifecta": {
+        "url": "https://invariantlabs.ai/blog/mcp-github-vulnerability", "atlas": "Exfiltration — private data via agent",
+        "real": "Invariant Labs showed that a malicious GitHub issue could hijack an agent using the official GitHub MCP server: it read the injected instruction in a public repo, then used the same token to leak private-repo data. The 'lethal trifecta': private data access, a malicious instruction, and an exfiltration path.",
+    },
+    "incident-confused-deputy": {
+        "url": "https://genai.owasp.org/", "atlas": "Privilege Escalation",
+        "real": "A recurring agentic pattern (OWASP Excessive Agency / confused deputy): an agent holds broad permissions for a legitimate task and gets nudged into using them for something unrelated, like granting itself or others admin.",
+    },
+    "incident-unauthorized-access": {
+        "url": "https://incidentdatabase.ai/cite/1471/", "atlas": "Exfiltration / access control",
+        "real": "A Meta internal AI agent reportedly surfaced sensitive data to employees who were not authorized to see it. The action was allowed by the tooling; the question no one enforced was whether the person behind it should see the data at all.",
+    },
+}
+
+
 def _build_call(route, args: dict) -> tuple[str, str, dict, dict | None]:
     """Resolve an operation + args into (method, path, params, body)."""
     args = dict(args or {})
@@ -410,10 +439,16 @@ def questions_catalog() -> list[dict]:
 
 
 def probe_summary() -> list[dict]:
-    return [{"key": p["key"], "title": p["title"], "persona": p["persona"], "permissions": p["permissions"],
-             "query": p["query"], "source": p.get("source"), "owasp": p.get("owasp"),
-             "steps": [{"op": s["op"], "intent": s["intent"], "note": s["note"]} for s in p["steps"]]}
-            for p in PROBES]
+    out = []
+    for p in PROBES:
+        m = INCIDENT_META.get(p["key"], {})
+        danger = next((s for s in p["steps"] if s["intent"] == "deny"), None)
+        out.append({"key": p["key"], "title": p["title"], "persona": p["persona"], "permissions": p["permissions"],
+                    "query": p["query"], "source": p.get("source"), "owasp": p.get("owasp"),
+                    "incident_url": m.get("url"), "atlas": m.get("atlas"), "real": m.get("real"),
+                    "danger_op": danger["op"] if danger else None, "danger_note": danger["note"] if danger else None,
+                    "steps": [{"op": s["op"], "intent": s["intent"], "note": s["note"]} for s in p["steps"]]})
+    return out
 
 
 
