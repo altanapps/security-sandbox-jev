@@ -6,8 +6,6 @@ FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 WORKDIR /app
 ENV PYTHONUNBUFFERED=1 \
     UV_COMPILE_BYTECODE=1 \
-    ORG_URL=http://127.0.0.1:8000 \
-    GATEWAY_URL=http://127.0.0.1:8080 \
     JUDGE=jev
 
 # deps first for layer caching
